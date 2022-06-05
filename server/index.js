@@ -5,6 +5,8 @@ const morgan = require("morgan");
 
 const PORT = 8000;
 
+const { handleUserVerification, handleCreateUser } = require("./handlers");
+
 express()
   .use(function (req, res, next) {
     res.header(
@@ -25,5 +27,15 @@ express()
 
   // REST endpoints?
   .get("/bacon", (req, res) => res.status(200).json("🥓"))
+  // Users Endpoints
+  // POST user
+  // verify if user exists or create one
+  // sub is auth0's id
+  .post(
+    "/user-verification/:auth0Sub",
+    handleUserVerification,
+    handleCreateUser
+  )
+  // POST user
 
   .listen(PORT, () => console.info(`Listening on port ${PORT}`));
