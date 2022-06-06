@@ -2,10 +2,13 @@ import { createGlobalStyle } from "styled-components";
 
 export default createGlobalStyle`
   :root {
-    --color-primary: #121A42;
-    --color-light-blue: #7885CC;
-    --color-navy-blue: #2D3558;
-    --color-grey: #7F7C84;
+    
+      /* Color Theme Swatches in Hex */
+    --color-primary: #010326;
+    --color-light-blue: #A0AED9;
+    --color-dark-green: #2F7310;
+    --color-medium-green: #6A8C51;
+    --color-light-green: #AFBF73;
     --font-heading: "Lato", sans-serif;
     --font-body: "Lato", sans-serif;
     --padding-page: 24px;
@@ -62,10 +65,19 @@ h2,
 h3,
 label,
 button {
-  color: #fff;
+  color: var(--color-primary);
   font-family: var(--font-heading);
   font-size: 32px;
   text-align: center;
+}
+h2 {
+  font-size: 26px;
+}
+h3 {
+  font-size: 22px;
+}
+h4 {
+  font-size: 20px;
 }
 p,
 a,
@@ -74,12 +86,4 @@ blockquote,
 input {
   font-family: var(--font-body);
 }
-
-  /* input {
-    font-size: 24px;
-    height: 42px;
-    border: 2px solid var(--color-one);
-    border-radius: 4px;
-    padding: 0 12px;
-  } */
 `;

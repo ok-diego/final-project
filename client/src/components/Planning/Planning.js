@@ -1,16 +1,26 @@
-import { useAuth0 } from "@auth0/auth0-react";
-import React from "react";
 import styled from "styled-components";
 
-const LogoutButton = () => {
-  const { logout } = useAuth0();
-
+const Planning = () => {
   return (
-    <Button onClick={() => logout({ returnTo: window.location.origin })}>
-      Log Out
-    </Button>
+    <Wrapper>
+      <Div>Create your itineray from the best hotels and airbnbs available</Div>
+      <Button>Start planing!</Button>
+    </Wrapper>
   );
 };
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  width: 30vw;
+  padding-top: 40px;
+`;
+const Div = styled.div`
+  padding: 20px 0;
+  font-weight: 400;
+`;
 const Button = styled.button`
   text-decoration: none;
   color: white;
@@ -29,5 +39,4 @@ const Button = styled.button`
     cursor: pointer;
   }
 `;
-
-export default LogoutButton;
+export default Planning;

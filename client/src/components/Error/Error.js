@@ -6,7 +6,7 @@ const Error = () => {
     <Wrapper>
       <>
         <Err>Oops! This is not what you are looking for.</Err>
-        <StyledLink to="/">RETURN TO HOMEPAGE</StyledLink>
+        <StyledLink to="/">Return to Homepage</StyledLink>
       </>
     </Wrapper>
   );
@@ -16,7 +16,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 20vh;
+  height: 40vh;
 `;
 
 const StyledLink = styled(Link)`
@@ -24,19 +24,22 @@ const StyledLink = styled(Link)`
   color: white;
   margin-top: 25px;
   font-weight: 300;
-  padding: 10px 50px;
+  padding: 15px 50px;
   font-size: 1em;
   transition: background-color 0.2s ease-out 20ms;
   transition: all 0.2s ease-in-out;
   background-color: black;
   border: none;
+  border-radius: 30px;
+
   &:hover {
+    background-color: rgba(0, 0, 0, 0.8);
     cursor: pointer;
   }
 `;
 const Err = styled.div`
   margin-top: 50px;
-  font-size: 1.5em;
+  font-size: 1.2em;
   font-weight: 400;
 `;
 

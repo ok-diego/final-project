@@ -68,8 +68,8 @@ const handleUserVerification = async (req, res, next) => {
     } else {
       // if the user does not exist then create it
       // local is an obj inside the res obj
-      //   next calls the next function se in our endpoint
-      //   handleCreateUser in this case
+      // next() calls the next function set in our endpoint
+      // handleCreateUser in this case
       res.locals.userData = userData;
       next();
     }

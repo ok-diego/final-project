@@ -1,17 +1,22 @@
 import styled from "styled-components";
-import LoginButton from "../common/LoginButton";
-import LogoutButton from "../common/LogoutButton";
 import Profile from "../Profile";
+import Planning from "../Planning/Planning";
 
 const Home = () => {
   return (
     <Wrapper>
       <Profile />
-      <LoginButton />
-      <LogoutButton />
+      <Planning />
     </Wrapper>
   );
 };
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+`;
 
 export default Home;
