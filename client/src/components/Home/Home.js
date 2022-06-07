@@ -1,12 +1,18 @@
 import styled from "styled-components";
 import Profile from "../Profile";
-import Planning from "../Planning/Planning";
+import Planning from "../Planning";
+import NullMap from "../Map";
+import { useContext } from "react";
+import { SimpleContext } from "../SimpleContext";
 
 const Home = () => {
+  const { destination } = useContext(SimpleContext);
+
   return (
     <Wrapper>
       <Profile />
       <Planning />
+      {destination && <NullMap />}
     </Wrapper>
   );
 };
