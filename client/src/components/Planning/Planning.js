@@ -1,28 +1,80 @@
 import { useContext, useState } from "react";
 import styled from "styled-components";
 import { SimpleContext } from "../SimpleContext";
-import TextField from "@mui/material/TextField";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import {
+  TextField,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Box,
+  NativeSelect,
+  InputLabel,
+  FormControl,
+} from "@mui/material";
 
 const Planning = () => {
   const { destination, setDestination, date, setDate } =
     useContext(SimpleContext);
-  const [userInput, setUserInput] = useState("");
 
-  //   date picker states
+  const [userInput, setUserInput] = useState("");
+  // date picker states
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
 
-  const getFormatDate = (date) => {
+  // modal dialog states
+  const [open, setOpen] = useState(false);
+  const [close, setClose] = useState(false);
+  const [guests, setGuests] = useState(1);
+
+  // setDestination(userInput);
+
+  const handleOpenModal = () => {
+    setOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setOpen(false);
+    setClose(true);
+  };
+
+  // date formatting for airbnb fetch query
+  const formatStartDate = (date) => {
     if (!date) return "";
+
+    // date object index starts at 0 for months - so we add 1 for january
+    let month = 1 + date.getMonth();
+
+    // months before 10 only display one number - so we add 0 before it
+    if (month < 10) {
+      month = "0" + month;
+    }
+
     if (date) {
-      return `${date.getFullYear()}-${date.getMonth()}-${date.getDay()}`;
+      return `${date.getFullYear()}-${month}-${date.getDate()}`;
     }
   };
 
-  console.log(getFormatDate(startDate));
+  const formatEndDate = (date) => {
+    if (!date) return "";
+
+    // date object index starts at 0 for months - so we add 1 for january
+    let month = 1 + date.getMonth();
+
+    if (month < 10) {
+      month = "0" + month;
+    }
+
+    if (date) {
+      return `${date.getFullYear()}-${month}-${date.getDate()}`;
+    }
+  };
+
+  console.log(formatStartDate(startDate));
+  console.log(formatEndDate(endDate));
   // console.log(startDate);
   // console.log(endDate);
 
@@ -44,9 +96,11 @@ const Planning = () => {
     };
 
     fetch(
-      `https://airbnb13.p.rapidapi.com/search-location?location=${destination}&checkin=${getFormatDate(
+      `https://airbnb13.p.rapidapi.com/search-location?location=${userInput}&checkin=${formatStartDate(
         startDate
-      )}&checkout=2022-05-17&adults=1&children=0&infants=0&page=1`,
+      )}&checkout=${formatEndDate(
+        endDate
+      )}&adults=${guests}&children=0&infants=0&page=1`,
       options
     )
       .then((response) => response.json())
@@ -54,57 +108,109 @@ const Planning = () => {
       .catch((err) => console.error(err));
   };
 
-  //   console.log(destination);
+  console.log(destination);
+  console.log(guests);
+  console.log(userInput);
 
   return (
     <Wrapper>
       <TextDiv>
         Create your itineray from the best hotels and airbnbs available
       </TextDiv>
-      {/* <Button>Start planing!</Button> */}
-      <Form onSubmit={handleSubmit}>
-        <Fieldset>
-          <InputText
-            type="text"
-            value={userInput}
-            name="destination"
-            placeholder="Enter destination"
-            onChange={(event) => {
-              setUserInput(event.target.value);
-              console.log(userInput);
-            }}
-          />
-          <DateDiv>
-            <LocalizationProvider dateAdapter={AdapterDateFns}>
-              <DatePicker
-                label="Start date:"
-                mask="____/__/__"
-                inputFormat="yyyy/MM/dd"
-                // views={["year", "month", "day"]}
-                value={startDate}
-                onChange={(newValue) => {
-                  setStartDate(newValue);
+      <Button onClick={handleOpenModal}>Start planing!</Button>
+
+      <Dialog open={open} onClose={handleCloseModal}>
+        <DialogTitle>Plan your trip</DialogTitle>
+        <DialogContent
+          sx={{
+            width: "100%",
+            // bgcolor: "#F2F2F2",
+          }}
+        >
+          <Form onSubmit={handleSubmit}>
+            <Fieldset>
+              <Box
+                sx={{
+                  "& > :not(style)": { m: 1, width: "25ch" },
                 }}
-                renderInput={(params) => <TextField {...params} />}
-              />
-            </LocalizationProvider>
-            <LocalizationProvider dateAdapter={AdapterDateFns}>
-              <DatePicker
-                label="End date:"
-                mask="____/__/__"
-                inputFormat="yyyy/MM/dd"
-                // views={["year", "month", "day"]}
-                value={endDate}
-                onChange={(newValue) => {
-                  setEndDate(newValue);
+              >
+                <TextField
+                  autoFocus
+                  margin="dense"
+                  id="destination"
+                  label="Destination"
+                  type="text"
+                  // fullWidth
+                  variant="outlined"
+                  value={userInput}
+                  placeholder="Enter destination"
+                  onChange={(event) => {
+                    setUserInput(event.target.value);
+                    // console.log(userInput);
+                  }}
+                />
+                <FormControl fullWidth>
+                  <InputLabel variant="standard" htmlFor="guests">
+                    Guests
+                  </InputLabel>
+                  <NativeSelect
+                    // defaultValue={1}
+                    value={guests}
+                    name="Guests"
+                    id="guests"
+                    onChange={(event) => {
+                      setGuests(event.target.value);
+                    }}
+                  >
+                    <option value={1}>1</option>
+                    <option value={2}>2</option>
+                    <option value={3}>3</option>
+                  </NativeSelect>
+                </FormControl>
+              </Box>
+              <Box
+                sx={{
+                  "& > :not(style)": { m: 1, width: "25ch" },
                 }}
-                renderInput={(params) => <TextField {...params} />}
-              />
-            </LocalizationProvider>
-          </DateDiv>
-          <InputSubmit type="submit" value="See your destinations" />
-        </Fieldset>
-      </Form>
+              >
+                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                  <DatePicker
+                    label="Start date:"
+                    mask="____/__/__"
+                    inputFormat="yyyy/MM/dd"
+                    // views={["year", "month", "day"]}
+                    value={startDate}
+                    onChange={(newValue) => {
+                      setStartDate(newValue);
+                    }}
+                    renderInput={(params) => <TextField {...params} />}
+                  />
+                </LocalizationProvider>
+                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                  <DatePicker
+                    label="End date:"
+                    mask="____/__/__"
+                    inputFormat="yyyy/MM/dd"
+                    // views={["year", "month", "day"]}
+                    value={endDate}
+                    onChange={(newValue) => {
+                      setEndDate(newValue);
+                    }}
+                    renderInput={(params) => <TextField {...params} />}
+                  />
+                </LocalizationProvider>
+              </Box>
+              <DialogActions>
+                <InputSubmit
+                  type="submit"
+                  value="See your destinations"
+                  onClick={handleCloseModal}
+                />
+              </DialogActions>
+            </Fieldset>
+          </Form>
+        </DialogContent>
+      </Dialog>
     </Wrapper>
   );
 };
@@ -186,10 +292,5 @@ const InputSubmit = styled.input`
 `;
 
 const Fieldset = styled.fieldset``;
-
-const DateDiv = styled.div`
-  display: flex;
-  padding: 10px 0;
-`;
 
 export default Planning;

@@ -11,7 +11,7 @@ import styled from "styled-components";
 const EmptyMap = () => {
   return (
     <>
-      // create a new google map with a default center
+      {/* create a new google map with a default center */}
       <GoogleMap
         defaultZoom={12}
         defaultCenter={{ lat: 45.49474477767944, lng: -73.58054399490356 }}
@@ -30,12 +30,12 @@ const NullMap = () => {
       <WrappedMap
         googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${API_KEY}`}
         loadingElement={
-          <div style={{ height: "100%", borderRadius: "5rem" }} />
+          <div style={{ height: "100%", borderRadius: "3rem" }} />
         }
         containerElement={
-          <div style={{ height: "100%", borderRadius: "5rem" }} />
+          <div style={{ height: "100%", borderRadius: "3rem" }} />
         }
-        mapElement={<div style={{ height: "100%", borderRadius: "5rem" }} />}
+        mapElement={<div style={{ height: "100%", borderRadius: "3rem" }} />}
       />
     </Div>
   );
