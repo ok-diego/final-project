@@ -15,8 +15,16 @@ const Planning = () => {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
 
-  console.log(startDate);
-  console.log(endDate);
+  const getFormatDate = (date) => {
+    if (!date) return "";
+    if (date) {
+      return `${date.getFullYear()}-${date.getMonth()}-${date.getDay()}`;
+    }
+  };
+
+  console.log(getFormatDate(startDate));
+  // console.log(startDate);
+  // console.log(endDate);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -24,7 +32,6 @@ const Planning = () => {
     // we have a local state to keep track of the user input
     // this state is always going to be one step behind because that's how they work
     // we use the state in context becuase it's updated and we have acess to the latest
-
     setDestination(userInput);
 
     const options = {
@@ -37,7 +44,9 @@ const Planning = () => {
     };
 
     fetch(
-      `https://airbnb13.p.rapidapi.com/search-location?location=${destination}&checkin=2022-05-16&checkout=2022-05-17&adults=1&children=0&infants=0&page=1`,
+      `https://airbnb13.p.rapidapi.com/search-location?location=${destination}&checkin=${getFormatDate(
+        startDate
+      )}&checkout=2022-05-17&adults=1&children=0&infants=0&page=1`,
       options
     )
       .then((response) => response.json())
@@ -49,7 +58,9 @@ const Planning = () => {
 
   return (
     <Wrapper>
-      <Div>Create your itineray from the best hotels and airbnbs available</Div>
+      <TextDiv>
+        Create your itineray from the best hotels and airbnbs available
+      </TextDiv>
       {/* <Button>Start planing!</Button> */}
       <Form onSubmit={handleSubmit}>
         <Fieldset>
@@ -67,7 +78,9 @@ const Planning = () => {
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DatePicker
                 label="Start date:"
-                views={["year", "month", "day"]}
+                mask="____/__/__"
+                inputFormat="yyyy/MM/dd"
+                // views={["year", "month", "day"]}
                 value={startDate}
                 onChange={(newValue) => {
                   setStartDate(newValue);
@@ -78,7 +91,9 @@ const Planning = () => {
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DatePicker
                 label="End date:"
-                views={["year", "month", "day"]}
+                mask="____/__/__"
+                inputFormat="yyyy/MM/dd"
+                // views={["year", "month", "day"]}
                 value={endDate}
                 onChange={(newValue) => {
                   setEndDate(newValue);
@@ -102,9 +117,9 @@ const Wrapper = styled.div`
   width: 30vw;
   padding-top: 40px;
 `;
-const Div = styled.div`
+const TextDiv = styled.div`
   padding: 20px 0;
-  font-weight: 600;
+  font-weight: 400;
 `;
 const Button = styled.button`
   text-decoration: none;
