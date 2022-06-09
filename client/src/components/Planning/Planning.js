@@ -17,8 +17,16 @@ import {
 } from "@mui/material";
 
 const Planning = () => {
-  const { destination, setDestination, date, setDate } =
-    useContext(SimpleContext);
+  const {
+    destination,
+    setDestination,
+    date,
+    setDate,
+    results,
+    setResults,
+    hotelsResults,
+    setHotelsResults,
+  } = useContext(SimpleContext);
 
   const [userInput, setUserInput] = useState("");
   // date picker states
@@ -86,7 +94,7 @@ const Planning = () => {
     // we use the state in context becuase it's updated and we have acess to the latest
     setDestination(userInput);
 
-    const options = {
+    const optionsAirbnb = {
       method: "GET",
       headers: {
         "X-RapidAPI-Host": "airbnb13.p.rapidapi.com",
@@ -101,13 +109,38 @@ const Planning = () => {
       )}&checkout=${formatEndDate(
         endDate
       )}&adults=${guests}&children=0&infants=0&page=1`,
-      options
+      optionsAirbnb
     )
       .then((response) => response.json())
-      .then((response) => console.log(response))
+      .then((data) => {
+        setResults(data.results);
+        console.log(data.results);
+      })
+      .catch((err) => console.error(err));
+
+    const optionsHotels = {
+      method: "GET",
+      headers: {
+        "X-RapidAPI-Key": `${process.env.REACT_APP_AIRBNB_KEY}`,
+        "X-RapidAPI-Host": "hotels4.p.rapidapi.com",
+      },
+    };
+
+    fetch(
+      `https://hotels4.p.rapidapi.com/locations/v2/search?query=${userInput}&locale=en_US&currency=CAD`,
+      optionsHotels
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        // we're passing 1 because we want hotels only
+        setHotelsResults(data.suggestions[1].entities);
+        console.log(data.suggestions[1].entities);
+      })
+
       .catch((err) => console.error(err));
   };
 
+  console.log(results);
   console.log(destination);
   console.log(guests);
   console.log(userInput);

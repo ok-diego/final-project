@@ -6,6 +6,8 @@ export const SimpleProvider = ({ children }) => {
   const [state, setStae] = useState([]);
   const [destination, setDestination] = useState("");
   const [date, setDate] = useState("");
+  const [results, setResults] = useState("");
+  const [hotelsResutls, setHotelsResults] = useState("");
 
   return (
     <SimpleContext.Provider
@@ -16,6 +18,10 @@ export const SimpleProvider = ({ children }) => {
         setDestination,
         date,
         setDate,
+        results,
+        setResults,
+        hotelsResutls,
+        setHotelsResults,
       }}
     >
       {children}
