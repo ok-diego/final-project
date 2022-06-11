@@ -89,7 +89,7 @@ const EmptyMap = () => {
 const WrappedMap = withScriptjs(withGoogleMap(EmptyMap));
 const API_KEY = process.env.REACT_APP_GOOGLE_KEY;
 
-// this map will show an empty map - we're not using it
+// this map will show an empty map - it's not being rendered
 const NullMap = () => {
   // Marker component just return its children
   // const Marker = ({ children }) => children;

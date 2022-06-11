@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import Profile from "../Profile";
 import Planning from "../Planning";
 import NullMap from "../Map";
 import Hero from "../Hero";
@@ -12,7 +11,6 @@ const Home = () => {
   return (
     <Wrapper>
       <Hero />
-      <Profile />
       {destination && <NullMap />}
     </Wrapper>
   );

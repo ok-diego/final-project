@@ -5,6 +5,7 @@ import Header from "./Header";
 import Home from "./Home";
 import Profile from "./Profile";
 import Error from "./Error";
+import Footer from "./Footer/Footer";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="*" element={<Error />} />
         </Routes>
       </Layout>
+      <Footer />
     </BrowserRouter>
   );
 }

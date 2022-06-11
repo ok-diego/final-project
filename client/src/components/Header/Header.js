@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 
 const Header = () => {
-  const { isAuthenticated } = useAuth0();
+  const { user, isAuthenticated } = useAuth0();
 
   return (
     <Wrapper>
@@ -14,6 +14,11 @@ const Header = () => {
           Simple <Span>Stay</Span>
         </LogoType>
       </LinkLogo>
+      {isAuthenticated && (
+        <UserDiv>
+          Hello<UserProfile to="/profile">{user.name}</UserProfile>
+        </UserDiv>
+      )}
       {!isAuthenticated ? <LoginButton /> : <LogoutButton />}
     </Wrapper>
   );
@@ -21,6 +26,7 @@ const Header = () => {
 const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
+  flex-direction: row;
   align-items: center;
   width: 100%;
   height: 60px;
@@ -42,6 +48,15 @@ const LinkLogo = styled(Link)`
   &:hover {
     color: rgba(0, 0, 0, 0.8);
   }
+`;
+const UserDiv = styled.div`
+  display: flex;
+  align-self: center;
+  margin-left: 75vw;
+  font-weight: 600;
+`;
+const UserProfile = styled(LinkLogo)`
+  padding-left: 5px;
 `;
 
 export default Header;
