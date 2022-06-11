@@ -21,22 +21,25 @@ const airbnbIcon = {
 };
 
 const EmptyMap = () => {
-  const { results, hotelsResults } = useContext(SimpleContext);
+  const { airbnbResults, hotelsResults } = useContext(SimpleContext);
 
   console.log(hotelsResults);
+  // render airbnb locations
   return (
-    results && (
+    airbnbResults && (
       <>
         {/* create a new google map with a default center */}
         <GoogleMap
           // google={this.props.google}
           defaultZoom={12}
-          defaultCenter={{ lat: results[0].lat, lng: results[0].lng }}
+          defaultCenter={{
+            lat: airbnbResults[0].lat,
+            lng: airbnbResults[0].lng,
+          }}
           // defaultCenter={{ lat: results[0].lat, lng: results[0].lng }}
         />
         {/* <Marker position={{ lat: 45.49474477767944, lng: -73.58054399490356 }} /> */}
-
-        {results.map((result, index) => {
+        {airbnbResults.map((result, index) => {
           return (
             <Marker
               icon={{
@@ -48,11 +51,14 @@ const EmptyMap = () => {
               }}
               key={result.id}
               {...result}
-              position={{ lat: results[index].lat, lng: results[index].lng }}
+              position={{
+                lat: airbnbResults[index].lat,
+                lng: airbnbResults[index].lng,
+              }}
             />
           );
         })}
-
+        // render hotels locations
         {hotelsResults &&
           hotelsResults.map((result, index) => {
             return (
@@ -60,7 +66,7 @@ const EmptyMap = () => {
                 icon={{
                   path: "M12.75 0l-2.25 2.25 2.25 2.25-5.25 6h-5.25l4.125 4.125-6.375 8.452v0.923h0.923l8.452-6.375 4.125 4.125v-5.25l6-5.25 2.25 2.25 2.25-2.25-11.25-11.25zM10.5 12.75l-1.5-1.5 5.25-5.25 1.5 1.5-5.25 5.25z",
                   fillOpacity: 1.0,
-                  fillColor: "#000000",
+                  fillColor: "#FF0000",
                   strokeWeight: 0,
                   scale: 1,
                 }}
@@ -69,8 +75,8 @@ const EmptyMap = () => {
                 // to the arrays length
                 {...hotelsResults}
                 position={{
-                  lat: hotelsResults[index].latitude,
-                  lng: hotelsResults[index].longitude,
+                  lat: result.latitude,
+                  lng: result.longitude,
                 }}
               />
             );
@@ -83,7 +89,7 @@ const EmptyMap = () => {
 const WrappedMap = withScriptjs(withGoogleMap(EmptyMap));
 const API_KEY = process.env.REACT_APP_GOOGLE_KEY;
 
-// this map will show an empty map
+// this map will show an empty map - we're not using it
 const NullMap = () => {
   // Marker component just return its children
   // const Marker = ({ children }) => children;

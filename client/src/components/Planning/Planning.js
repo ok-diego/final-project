@@ -22,8 +22,8 @@ const Planning = () => {
     setDestination,
     date,
     setDate,
-    results,
-    setResults,
+    airbnbResults,
+    setAirbnbResults,
     hotelsResults,
     setHotelsResults,
   } = useContext(SimpleContext);
@@ -94,56 +94,59 @@ const Planning = () => {
     // we use the state in context becuase it's updated and we have acess to the latest
     setDestination(userInput);
 
-    const optionsAirbnb = {
-      method: "GET",
-      headers: {
-        "X-RapidAPI-Host": "airbnb13.p.rapidapi.com",
-        // we hide our API key in the .env file (environment variables)
-        "X-RapidAPI-Key": `${process.env.REACT_APP_AIRBNB_KEY}`,
-      },
-    };
+    // Airbnb api fetch
+    // const optionsAirbnb = {
+    //   method: "GET",
+    //   headers: {
+    //     "X-RapidAPI-Host": "airbnb13.p.rapidapi.com",
+    //     // we hide our API key in the .env file (environment variables)
+    //     "X-RapidAPI-Key": `${process.env.REACT_APP_AIRBNB_KEY}`,
+    //   },
+    // };
 
-    fetch(
-      `https://airbnb13.p.rapidapi.com/search-location?location=${userInput}&checkin=${formatStartDate(
-        startDate
-      )}&checkout=${formatEndDate(
-        endDate
-      )}&adults=${guests}&children=0&infants=0&page=1`,
-      optionsAirbnb
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        setResults(data.results);
-        console.log(data.results);
-      })
-      .catch((err) => console.error(err));
+    // fetch(
+    //   `https://airbnb13.p.rapidapi.com/search-location?location=${userInput}&checkin=${formatStartDate(
+    //     startDate
+    //   )}&checkout=${formatEndDate(
+    //     endDate
+    //   )}&adults=${guests}&children=0&infants=0&page=1`,
+    //   optionsAirbnb
+    // )
+    //   .then((response) => response.json())
+    //   .then((data) => {
+    //     setAirbnbResults(data.results);
+    //     console.log(data.results);
+    //   })
+    //   .catch((err) => console.error(err));
 
-    const optionsHotels = {
-      method: "GET",
-      headers: {
-        "X-RapidAPI-Key": `${process.env.REACT_APP_AIRBNB_KEY}`,
-        "X-RapidAPI-Host": "hotels4.p.rapidapi.com",
-      },
-    };
+    // Hotels api fetch
+    // const optionsHotels = {
+    //   method: "GET",
+    //   headers: {
+    //     "X-RapidAPI-Key": `${process.env.REACT_APP_AIRBNB_KEY}`,
+    //     "X-RapidAPI-Host": "hotels4.p.rapidapi.com",
+    //   },
+    // };
 
-    fetch(
-      `https://hotels4.p.rapidapi.com/locations/v2/search?query=${userInput}&locale=en_US&currency=CAD`,
-      optionsHotels
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        // we're passing 1 because we want hotels only
-        setHotelsResults(data.suggestions[1].entities);
-        console.log(data.suggestions[1].entities);
-      })
+    // fetch(
+    //   `https://hotels4.p.rapidapi.com/locations/v2/search?query=${userInput}&locale=en_US&currency=CAD`,
+    //   optionsHotels
+    // )
+    //   .then((response) => response.json())
+    //   .then((data) => {
+    //     // we're passing 1 because we want hotels only
+    //     setHotelsResults(data.suggestions[1].entities);
+    //     console.log(data.suggestions[1].entities);
+    //   })
 
-      .catch((err) => console.error(err));
+    //   .catch((err) => console.error(err));
   };
 
-  console.log(results);
-  console.log(destination);
-  console.log(guests);
-  console.log(userInput);
+  // console.log(destination);
+  // console.log(guests);
+  // console.log(userInput);
+  // console.log(airbnbResults);
+  console.log(hotelsResults);
 
   return (
     <Wrapper>
@@ -256,9 +259,14 @@ const Wrapper = styled.div`
   width: 30vw;
   padding-top: 40px;
 `;
-const TextDiv = styled.div`
+// const TextDiv = styled.div`
+//   padding: 20px 0;
+//   font-weight: 400;
+// `;
+const TextDiv = styled.h3`
+  color: white;
   padding: 20px 0;
-  font-weight: 400;
+  font-weight: 200;
 `;
 const Button = styled.button`
   text-decoration: none;

@@ -2,6 +2,7 @@ import styled from "styled-components";
 import Profile from "../Profile";
 import Planning from "../Planning";
 import NullMap from "../Map";
+import Hero from "../Hero";
 import { useContext } from "react";
 import { SimpleContext } from "../SimpleContext";
 
@@ -10,8 +11,8 @@ const Home = () => {
 
   return (
     <Wrapper>
+      <Hero />
       <Profile />
-      <Planning />
       {destination && <NullMap />}
     </Wrapper>
   );
