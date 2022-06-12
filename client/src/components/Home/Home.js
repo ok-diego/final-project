@@ -6,12 +6,12 @@ import { useContext } from "react";
 import { SimpleContext } from "../SimpleContext";
 
 const Home = () => {
-  const { destination } = useContext(SimpleContext);
+  const { airbnbResults, hotelsResults } = useContext(SimpleContext);
 
   return (
     <Wrapper>
-      <Hero />
-      {destination && <NullMap />}
+      {!hotelsResults && <Hero />}
+      {hotelsResults && <NullMap />}
     </Wrapper>
   );
 };

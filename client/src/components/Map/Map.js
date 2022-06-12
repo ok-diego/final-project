@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 
 import {
   GoogleMap,
@@ -8,10 +8,12 @@ import {
   Map,
   InfoWindow,
 } from "react-google-maps";
+
 import styled from "styled-components";
 import { SimpleContext } from "../SimpleContext";
 
-import airbnb from "../../assets/airbnb_travel_icon.svg";
+// import airbnb from "../../assets/airbnb_icon.png";
+import { FaAirbnb } from "react-icons/fa";
 
 const airbnbIcon = {
   path: "M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8z",
@@ -20,26 +22,34 @@ const airbnbIcon = {
   scale: 0.05, //to reduce the size of icons
 };
 
+// render a google map imported from the react google map library
 const EmptyMap = () => {
   const { airbnbResults, hotelsResults } = useContext(SimpleContext);
+
+  // set a state to track the selected hotels which users click
+  const [selectedHotel, setSelectedHotel] = useState(null);
 
   console.log(hotelsResults);
   // render airbnb locations
   return (
-    airbnbResults && (
+    // airbnbResults && (
+    hotelsResults && (
       <>
         {/* create a new google map with a default center */}
         <GoogleMap
-          // google={this.props.google}
-          defaultZoom={12}
+          // initial options and styling
+          defaultZoom={13}
           defaultCenter={{
-            lat: airbnbResults[0].lat,
-            lng: airbnbResults[0].lng,
+            lat: hotelsResults[0].latitude,
+            lng: hotelsResults[0].longitude,
+            // lat: airbnbResults[0].lat,
+            // lng: airbnbResults[0].lng,
           }}
           // defaultCenter={{ lat: results[0].lat, lng: results[0].lng }}
         />
+        )
         {/* <Marker position={{ lat: 45.49474477767944, lng: -73.58054399490356 }} /> */}
-        {airbnbResults.map((result, index) => {
+        {/* {airbnbResults.map((result, index) => {
           return (
             <Marker
               icon={{
@@ -57,30 +67,52 @@ const EmptyMap = () => {
               }}
             />
           );
+        })} */}
+        {/* render hotels locations */}
+        {/* {hotelsResults && */}
+        {/* map over hotels api and create markers for each of them */}
+        {hotelsResults.map((hotel, index) => {
+          return (
+            <Marker
+              key={hotel.geoId}
+              position={{
+                lat: hotel.latitude,
+                lng: hotel.longitude,
+              }}
+              onClick={() => {
+                setSelectedHotel(hotel);
+              }}
+              // the spread operator is creating a copy of the array to have numbers of markers
+              // to the arrays length
+              {...hotelsResults}
+              // icon={{
+              //   // path: "M12.75 0l-2.25 2.25 2.25 2.25-5.25 6h-5.25l4.125 4.125-6.375 8.452v0.923h0.923l8.452-6.375 4.125 4.125v-5.25l6-5.25 2.25 2.25 2.25-2.25-11.25-11.25zM10.5 12.75l-1.5-1.5 5.25-5.25 1.5 1.5-5.25 5.25z",
+              //   fillOpacity: 1.0,
+              //   fillColor: "#FF0000",
+              //   strokeWeight: 0,
+              //   scale: 1,
+              // }}
+              icon={{
+                url: "/airbnb_icon_32.png",
+                scaledSize: new window.google.maps.Size(32, 32),
+              }}
+            />
+          );
         })}
-        // render hotels locations
-        {hotelsResults &&
-          hotelsResults.map((result, index) => {
-            return (
-              <Marker
-                icon={{
-                  path: "M12.75 0l-2.25 2.25 2.25 2.25-5.25 6h-5.25l4.125 4.125-6.375 8.452v0.923h0.923l8.452-6.375 4.125 4.125v-5.25l6-5.25 2.25 2.25 2.25-2.25-11.25-11.25zM10.5 12.75l-1.5-1.5 5.25-5.25 1.5 1.5-5.25 5.25z",
-                  fillOpacity: 1.0,
-                  fillColor: "#FF0000",
-                  strokeWeight: 0,
-                  scale: 1,
-                }}
-                key={result.geoId}
-                // the spread operator is creating a copy of the array to have numbers of markers
-                // to the arrays length
-                {...hotelsResults}
-                position={{
-                  lat: result.latitude,
-                  lng: result.longitude,
-                }}
-              />
-            );
-          })}
+        {/* if a hotel is selected show info window */}
+        {selectedHotel && (
+          <InfoWindow
+            position={{
+              lat: selectedHotel.latitude,
+              lng: selectedHotel.longitude,
+            }}
+            onCloseClick={() => {
+              setSelectedHotel(null);
+            }}
+          >
+            <InfoName>{selectedHotel.name}</InfoName>
+          </InfoWindow>
+        )}
       </>
     )
   );
@@ -114,6 +146,9 @@ const NullMap = () => {
 };
 const Div = styled.div`
   padding: 20px 0;
+`;
+const InfoName = styled.div`
+  font-weight: 600;
 `;
 
 export default NullMap;
