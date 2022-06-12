@@ -12,8 +12,11 @@ import {
 import styled from "styled-components";
 import { SimpleContext } from "../SimpleContext";
 
+// import icons
 // import airbnb from "../../assets/airbnb_icon.png";
 import { FaAirbnb } from "react-icons/fa";
+
+import PlanningBar from "../PlanningBar";
 
 const airbnbIcon = {
   path: "M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8z",
@@ -82,16 +85,8 @@ const EmptyMap = () => {
               onClick={() => {
                 setSelectedHotel(hotel);
               }}
-              // the spread operator is creating a copy of the array to have numbers of markers
-              // to the arrays length
+              // spread creates a copy of the array to have numbers of markers to arrays length
               {...hotelsResults}
-              // icon={{
-              //   // path: "M12.75 0l-2.25 2.25 2.25 2.25-5.25 6h-5.25l4.125 4.125-6.375 8.452v0.923h0.923l8.452-6.375 4.125 4.125v-5.25l6-5.25 2.25 2.25 2.25-2.25-11.25-11.25zM10.5 12.75l-1.5-1.5 5.25-5.25 1.5 1.5-5.25 5.25z",
-              //   fillOpacity: 1.0,
-              //   fillColor: "#FF0000",
-              //   strokeWeight: 0,
-              //   scale: 1,
-              // }}
               icon={{
                 url: "/airbnb_icon_32.png",
                 scaledSize: new window.google.maps.Size(32, 32),
@@ -126,29 +121,60 @@ const NullMap = () => {
   // Marker component just return its children
   // const Marker = ({ children }) => children;
   return (
-    <Div style={{ width: "70%", height: "80vh" }}>
-      <WrappedMap
-        googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${API_KEY}`}
-        loadingElement={
-          <div style={{ height: "100%", borderRadius: "3rem" }} />
-        }
-        containerElement={
-          <div style={{ height: "100%", borderRadius: "3rem" }} />
-        }
-        mapElement={<div style={{ height: "100%", borderRadius: "3rem" }} />}
-        // {...results.map((result) => {
-        //   // attach latitude and longitude to our Markers to display them
-        //   return <Marker key={result.id} lat={result.lat} lng={result.lng} />;
-        // })}
-      />
-    </Div>
+    <Wrapper>
+      <PlanningDiv>
+        <PlanningBar />
+      </PlanningDiv>
+      <ResultsDiv>
+        Hotels details
+        <Ul>
+          <li></li>
+        </Ul>
+      </ResultsDiv>
+      <MapDiv style={{ width: "70%", height: "80vh" }}>
+        <WrappedMap
+          googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${API_KEY}`}
+          loadingElement={
+            <div style={{ height: "100%", borderRadius: "0rem" }} />
+          }
+          containerElement={
+            <div style={{ height: "100%", borderRadius: "0rem" }} />
+          }
+          mapElement={<div style={{ height: "100%", borderRadius: "0rem" }} />}
+          // {...results.map((result) => {
+          //   // attach latitude and longitude to our Markers to display them
+          //   return <Marker key={result.id} lat={result.lat} lng={result.lng} />;
+          // })}
+        />
+      </MapDiv>
+    </Wrapper>
   );
 };
-const Div = styled.div`
+const Wrapper = styled.div`
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+  width: 100%;
+`;
+const MapDiv = styled.div`
   padding: 20px 0;
 `;
 const InfoName = styled.div`
   font-weight: 600;
 `;
+const PlanningDiv = styled.div`
+  width: auto;
+  /* align-items: center; */
+  /* align-content: center; */
+  /* align-self: center; */
+`;
+const ResultsDiv = styled.div`
+  width: 30%;
+  height: auto;
+  align-self: flex-start;
+  padding: 10px;
+`;
+
+const Ul = styled.ul``;
 
 export default NullMap;

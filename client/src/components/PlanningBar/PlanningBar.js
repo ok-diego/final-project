@@ -14,11 +14,12 @@ import {
   NativeSelect,
   Select,
   MenuItem,
+  ListSubheader,
   InputLabel,
   FormControl,
 } from "@mui/material";
 
-const Planning = () => {
+const PlanningBar = () => {
   const {
     destination,
     setDestination,
@@ -152,126 +153,109 @@ const Planning = () => {
 
   return (
     <Wrapper>
-      <TextDiv>
-        Create your itineray from the best hotels and airbnbs available
-      </TextDiv>
-      <Button onClick={handleOpenModal}>Start planing!</Button>
+      <TextDiv>Where to stay</TextDiv>
 
-      <Dialog open={open} onClose={handleCloseModal}>
-        <DialogTitle>Plan your trip</DialogTitle>
-        <DialogContent
-          sx={{
-            width: "100%",
-            // bgcolor: "#F2F2F2",
-          }}
-        >
-          <Form onSubmit={handleSubmit}>
-            <Fieldset>
-              <Box
-                sx={{
-                  "& > :not(style)": { m: 1, width: "25ch" },
+      <Form onSubmit={handleSubmit}>
+        <Fieldset>
+          <Box
+            sx={{
+              "& > :not(style)": { m: 1 },
+            }}
+          >
+            <TextField
+              autoFocus
+              margin="dense"
+              id="destination"
+              label="Destination"
+              type="text"
+              // fullWidth
+              variant="outlined"
+              size="small"
+              value={userInput}
+              placeholder="Enter destination"
+              onChange={(event) => {
+                setUserInput(event.target.value);
+                // console.log(userInput);
+              }}
+            />
+            <LocalizationProvider dateAdapter={AdapterDateFns}>
+              <DatePicker
+                label="Start date:"
+                mask="____/__/__"
+                inputFormat="yyyy/MM/dd"
+                size="small"
+                value={startDate}
+                onChange={(newValue) => {
+                  setStartDate(newValue);
+                }}
+                renderInput={(params) => <TextField {...params} />}
+              />
+            </LocalizationProvider>
+            <LocalizationProvider dateAdapter={AdapterDateFns}>
+              <DatePicker
+                label="End date:"
+                mask="____/__/__"
+                inputFormat="yyyy/MM/dd"
+                size="small"
+                value={endDate}
+                onChange={(newValue) => {
+                  setEndDate(newValue);
+                }}
+                renderInput={(params) => <TextField {...params} />}
+              />
+            </LocalizationProvider>
+            {/* <FormControl
+              sx={{
+                "& > :not(style)": { m: 0, width: "10ch" },
+              }}
+            >
+              <InputLabel id="guests">Guests</InputLabel>
+              <Select
+                // defaultValue={1}
+                value={guests}
+                name="Guests"
+                id="guests"
+                label="guests"
+                autoWidth
+                onChange={(event) => {
+                  setGuests(event.target.value);
                 }}
               >
-                <TextField
-                  autoFocus
-                  margin="dense"
-                  id="destination"
-                  label="Destination"
-                  type="text"
-                  // fullWidth
-                  variant="outlined"
-                  value={userInput}
-                  placeholder="Enter destination"
-                  onChange={(event) => {
-                    setUserInput(event.target.value);
-                    // console.log(userInput);
-                  }}
-                />
-                {/* <FormControl fullWidth>
-                  <InputLabel variant="standard" htmlFor="guests">
-                    Guests
-                  </InputLabel>
-                  <NativeSelect
-                    // defaultValue={1}
-                    value={guests}
-                    name="Guests"
-                    id="guests"
-                    onChange={(event) => {
-                      setGuests(event.target.value);
-                    }}
-                  >
-                    <option value={1}>1</option>
-                    <option value={2}>2</option>
-                    <option value={3}>3</option>
-                  </NativeSelect>
-                </FormControl> */}
-                <FormControl
-                  sx={{
-                    "& > :not(style)": { m: 0, width: "10ch" },
-                  }}
-                >
-                  <InputLabel id="guests">Guests</InputLabel>
-                  <Select
-                    // defaultValue={1}
-                    value={guests}
-                    name="Guests"
-                    id="guests"
-                    label="guests"
-                    autoWidth
-                    onChange={(event) => {
-                      setGuests(event.target.value);
-                    }}
-                  >
-                    <MenuItem value="1"></MenuItem>
-                    <MenuItem value={1}>1</MenuItem>
-                    <MenuItem value={2}>2</MenuItem>
-                    <MenuItem value={3}>3</MenuItem>
-                  </Select>
-                </FormControl>
-              </Box>
-              <Box
-                sx={{
-                  "& > :not(style)": { m: 1, width: "25ch" },
+                <MenuItem value="1"></MenuItem>
+                <MenuItem value={1}>1</MenuItem>
+                <MenuItem value={2}>2</MenuItem>
+                <MenuItem value={3}>3</MenuItem>
+              </Select>
+            </FormControl> */}
+            <FormControl sx={{ m: 1, minWidth: 120 }}>
+              <InputLabel htmlFor="grouped-select">Guests</InputLabel>
+              <Select
+                defaultValue=""
+                id="grouped-select"
+                label="Guests"
+                size="small"
+                value={guests}
+                onChange={(event) => {
+                  setGuests(event.target.value);
                 }}
               >
-                <LocalizationProvider dateAdapter={AdapterDateFns}>
-                  <DatePicker
-                    label="Start date:"
-                    mask="____/__/__"
-                    inputFormat="yyyy/MM/dd"
-                    // views={["year", "month", "day"]}
-                    value={startDate}
-                    onChange={(newValue) => {
-                      setStartDate(newValue);
-                    }}
-                    renderInput={(params) => <TextField {...params} />}
-                  />
-                </LocalizationProvider>
-                <LocalizationProvider dateAdapter={AdapterDateFns}>
-                  <DatePicker
-                    label="End date:"
-                    mask="____/__/__"
-                    inputFormat="yyyy/MM/dd"
-                    // views={["year", "month", "day"]}
-                    value={endDate}
-                    onChange={(newValue) => {
-                      setEndDate(newValue);
-                    }}
-                    renderInput={(params) => <TextField {...params} />}
-                  />
-                </LocalizationProvider>
-              </Box>
-              <DialogActions>
-                <InputSubmit
-                  type="submit"
-                  value="See your destinations"
-                  onClick={handleCloseModal}
-                />
-              </DialogActions>
-            </Fieldset>
-          </Form>
-        </DialogContent>
-      </Dialog>
+                <MenuItem value="">
+                  <em>1</em>
+                </MenuItem>
+                <ListSubheader>Adults</ListSubheader>
+                <MenuItem value={1}>1</MenuItem>
+                <MenuItem value={2}>2</MenuItem>
+                <ListSubheader>Children</ListSubheader>
+                <MenuItem value={1}>1</MenuItem>
+                <MenuItem value={2}>2</MenuItem>
+              </Select>
+            </FormControl>
+          </Box>
+        </Fieldset>
+        <Button type="submit" value="destinations">
+          Search
+        </Button>
+      </Form>
     </Wrapper>
   );
 };
@@ -281,24 +265,22 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   align-content: center;
-  width: 30vw;
-  padding-top: 40px;
+  width: 70vw;
+  padding-top: 30px;
 `;
-// const TextDiv = styled.div`
-//   padding: 20px 0;
-//   font-weight: 400;
-// `;
-const TextDiv = styled.h3`
-  color: white;
+const TextDiv = styled.div`
+  color: black;
   padding: 20px 0;
-  font-weight: 200;
+  font-weight: 400;
+  font-size: 18px;
 `;
 const Button = styled.button`
   text-decoration: none;
   color: white;
   margin-top: 0;
   font-weight: 400;
-  padding: 10px 35px;
+  padding: 10px 30px;
+  margin-left: 5px;
   font-size: 0.9rem;
   background-color: var(--color-primary);
   border: none;
@@ -311,8 +293,10 @@ const Button = styled.button`
     cursor: pointer;
   }
 `;
-const Form = styled.form``;
-
+const Form = styled.form`
+  display: flex;
+  align-items: center;
+`;
 const InputText = styled.input`
   width: 40%;
   /* height: 40px; */
@@ -336,7 +320,6 @@ const InputText = styled.input`
   &::placeholder {
   }
 `;
-
 const InputSubmit = styled.input`
   text-decoration: none;
   color: white;
@@ -356,7 +339,6 @@ const InputSubmit = styled.input`
     cursor: pointer;
   }
 `;
-
 const Fieldset = styled.fieldset``;
 
-export default Planning;
+export default PlanningBar;
