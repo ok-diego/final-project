@@ -1,5 +1,5 @@
-import { useContext, useState } from "react";
 import styled from "styled-components";
+import { useContext, useState } from "react";
 import { SimpleContext } from "../SimpleContext";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -170,7 +170,7 @@ const PlanningBar = () => {
               type="text"
               // fullWidth
               variant="outlined"
-              size="small"
+              //   size="small"
               value={userInput}
               placeholder="Enter destination"
               onChange={(event) => {
@@ -196,7 +196,7 @@ const PlanningBar = () => {
                 label="End date:"
                 mask="____/__/__"
                 inputFormat="yyyy/MM/dd"
-                size="small"
+                // size="small"
                 value={endDate}
                 onChange={(newValue) => {
                   setEndDate(newValue);
@@ -233,15 +233,13 @@ const PlanningBar = () => {
                 defaultValue=""
                 id="grouped-select"
                 label="Guests"
-                size="small"
+                // size="small"
                 value={guests}
                 onChange={(event) => {
                   setGuests(event.target.value);
                 }}
               >
-                <MenuItem value="">
-                  <em>1</em>
-                </MenuItem>
+                <MenuItem value="">{/* <em>1</em> */}</MenuItem>
                 <ListSubheader>Adults</ListSubheader>
                 <MenuItem value={1}>1</MenuItem>
                 <MenuItem value={2}>2</MenuItem>
@@ -266,7 +264,7 @@ const Wrapper = styled.div`
   align-items: center;
   align-content: center;
   width: 70vw;
-  padding-top: 30px;
+  padding: 20px 0;
 `;
 const TextDiv = styled.div`
   color: black;
@@ -279,7 +277,7 @@ const Button = styled.button`
   color: white;
   margin-top: 0;
   font-weight: 400;
-  padding: 10px 30px;
+  padding: 10px 25px;
   margin-left: 5px;
   font-size: 0.9rem;
   background-color: var(--color-primary);
@@ -325,7 +323,7 @@ const InputSubmit = styled.input`
   color: white;
   margin-top: 0;
   font-weight: 400;
-  padding: 10px 35px;
+  padding: 10px 30px;
   font-size: 0.9rem;
   background-color: var(--color-primary);
   border: none;

@@ -32,6 +32,7 @@ const Wrapper = styled.div`
   height: 60px;
   border-bottom: 1px solid var(--color-light-blue);
   padding: 20px;
+  /* box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12); */
 `;
 const LogoType = styled.div`
   padding: 10px;

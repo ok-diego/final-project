@@ -1,5 +1,9 @@
+// local imports
 import React, { useContext, useState } from "react";
+import styled from "styled-components";
+import { SimpleContext } from "../SimpleContext";
 
+// react google map imports
 import {
   GoogleMap,
   withScriptjs,
@@ -9,14 +13,11 @@ import {
   InfoWindow,
 } from "react-google-maps";
 
-import styled from "styled-components";
-import { SimpleContext } from "../SimpleContext";
-
-// import icons
-// import airbnb from "../../assets/airbnb_icon.png";
+// react icons imports
 import { FaAirbnb } from "react-icons/fa";
-
+// components imports
 import PlanningBar from "../PlanningBar";
+import mapStyles from "./mapStyles";
 
 const airbnbIcon = {
   path: "M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8z",
@@ -48,9 +49,9 @@ const EmptyMap = () => {
             // lat: airbnbResults[0].lat,
             // lng: airbnbResults[0].lng,
           }}
+          defaultOptions={{ styles: mapStyles }}
           // defaultCenter={{ lat: results[0].lat, lng: results[0].lng }}
         />
-        )
         {/* <Marker position={{ lat: 45.49474477767944, lng: -73.58054399490356 }} /> */}
         {/* {airbnbResults.map((result, index) => {
           return (
@@ -82,6 +83,9 @@ const EmptyMap = () => {
                 lat: hotel.latitude,
                 lng: hotel.longitude,
               }}
+              onMouseOver={() => {
+                setSelectedHotel(hotel);
+              }}
               onClick={() => {
                 setSelectedHotel(hotel);
               }}
@@ -101,6 +105,9 @@ const EmptyMap = () => {
               lat: selectedHotel.latitude,
               lng: selectedHotel.longitude,
             }}
+            onMouseOut={() => {
+              setSelectedHotel(null);
+            }}
             onCloseClick={() => {
               setSelectedHotel(null);
             }}
@@ -118,35 +125,31 @@ const API_KEY = process.env.REACT_APP_GOOGLE_KEY;
 
 // this map will show an empty map - it's not being rendered
 const NullMap = () => {
-  // Marker component just return its children
-  // const Marker = ({ children }) => children;
   return (
     <Wrapper>
       <PlanningDiv>
         <PlanningBar />
       </PlanningDiv>
       <ResultsDiv>
-        Hotels details
         <Ul>
-          <li></li>
+          <li>Hotels details</li>
         </Ul>
+
+        <MapDiv style={{ width: "70%", height: "80vh" }}>
+          <WrappedMap
+            googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${API_KEY}`}
+            loadingElement={
+              <div style={{ height: "100%", borderRadius: "0rem" }} />
+            }
+            containerElement={
+              <div style={{ height: "100%", borderRadius: "0rem" }} />
+            }
+            mapElement={
+              <div style={{ height: "100%", borderRadius: "0rem" }} />
+            }
+          />
+        </MapDiv>
       </ResultsDiv>
-      <MapDiv style={{ width: "70%", height: "80vh" }}>
-        <WrappedMap
-          googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${API_KEY}`}
-          loadingElement={
-            <div style={{ height: "100%", borderRadius: "0rem" }} />
-          }
-          containerElement={
-            <div style={{ height: "100%", borderRadius: "0rem" }} />
-          }
-          mapElement={<div style={{ height: "100%", borderRadius: "0rem" }} />}
-          // {...results.map((result) => {
-          //   // attach latitude and longitude to our Markers to display them
-          //   return <Marker key={result.id} lat={result.lat} lng={result.lng} />;
-          // })}
-        />
-      </MapDiv>
     </Wrapper>
   );
 };
@@ -157,24 +160,25 @@ const Wrapper = styled.div`
   width: 100%;
 `;
 const MapDiv = styled.div`
-  padding: 20px 0;
+  padding: 0;
 `;
 const InfoName = styled.div`
   font-weight: 600;
 `;
 const PlanningDiv = styled.div`
   width: auto;
-  /* align-items: center; */
-  /* align-content: center; */
-  /* align-self: center; */
+  align-self: center;
 `;
 const ResultsDiv = styled.div`
-  width: 30%;
+  display: flex;
+  width: 100%;
   height: auto;
   align-self: flex-start;
-  padding: 10px;
+  border-top: 1px solid var(--color-light-blue);
 `;
-
-const Ul = styled.ul``;
+const Ul = styled.ul`
+  width: 30%;
+  padding: 20px;
+`;
 
 export default NullMap;
