@@ -24,7 +24,7 @@ function App() {
   );
 }
 const Layout = styled.div`
-  min-height: 100vh;
+  min-height: calc(100vh - 180px);
 `;
 
 export default App;

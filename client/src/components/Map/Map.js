@@ -28,15 +28,23 @@ const airbnbIcon = {
 
 // render a google map imported from the react google map library
 const EmptyMap = () => {
-  const { airbnbResults, hotelsResults } = useContext(SimpleContext);
+  const {
+    airbnbResults,
+    hotelsResults,
+    selectedAirbnb,
+    setSelectedAirbnb,
+    selectedHotel,
+    setSelectedHotel,
+  } = useContext(SimpleContext);
 
-  // set a state to track the selected hotels which users click
-  const [selectedHotel, setSelectedHotel] = useState(null);
+  // set a state to track the selected airbnb and hotel which users click
+  // const [selectedAirbnb, setSelectedAirbnb] = useState(null);
+  // const [selectedHotel, setSelectedHotel] = useState(null);
 
-  console.log(hotelsResults);
+  // console.log(hotelsResults);
   // render airbnb locations
   return (
-    // airbnbResults && (
+    airbnbResults &&
     hotelsResults && (
       <>
         {/* create a new google map with a default center */}
@@ -44,40 +52,63 @@ const EmptyMap = () => {
           // initial options and styling
           defaultZoom={13}
           defaultCenter={{
-            lat: hotelsResults[0].latitude,
-            lng: hotelsResults[0].longitude,
-            // lat: airbnbResults[0].lat,
-            // lng: airbnbResults[0].lng,
+            lat: airbnbResults[0].lat,
+            lng: airbnbResults[0].lng,
+            // lat: hotelsResults[0].latitude,
+            // lng: hotelsResults[0].longitude,
           }}
           defaultOptions={{ styles: mapStyles }}
           // defaultCenter={{ lat: results[0].lat, lng: results[0].lng }}
         />
         {/* <Marker position={{ lat: 45.49474477767944, lng: -73.58054399490356 }} /> */}
-        {/* {airbnbResults.map((result, index) => {
+        {/* map over airbnb api and create markers for each of them */}
+        {airbnbResults.map((airbnb, index) => {
           return (
             <Marker
-              icon={{
-                path: "M12.75 0l-2.25 2.25 2.25 2.25-5.25 6h-5.25l4.125 4.125-6.375 8.452v0.923h0.923l8.452-6.375 4.125 4.125v-5.25l6-5.25 2.25 2.25 2.25-2.25-11.25-11.25zM10.5 12.75l-1.5-1.5 5.25-5.25 1.5 1.5-5.25 5.25z",
-                fillOpacity: 1.0,
-                fillColor: "#0000ff",
-                strokeWeight: 0,
-                scale: 1,
-              }}
-              key={result.id}
-              {...result}
+              // spread creates a copy of the array to have numbers of markers to arrays length
+              {...airbnb}
+              key={airbnb.id}
               position={{
                 lat: airbnbResults[index].lat,
                 lng: airbnbResults[index].lng,
               }}
+              onMouseOver={() => {
+                setSelectedAirbnb(airbnb);
+              }}
+              onClick={() => {
+                setSelectedAirbnb(airbnb);
+              }}
+              icon={{
+                url: "/airbnb_icon_32.png",
+                scaledSize: new window.google.maps.Size(30, 30),
+              }}
             />
           );
-        })} */}
-        {/* render hotels locations */}
-        {/* {hotelsResults && */}
-        {/* map over hotels api and create markers for each of them */}
+        })}
+        {/* if an airbnb is selected show info window */}
+        {selectedAirbnb ? (
+          <InfoWindow
+            position={{
+              lat: selectedAirbnb.lat,
+              lng: selectedAirbnb.lng,
+            }}
+            onMouseOut={() => {
+              setSelectedAirbnb(null);
+            }}
+            onCloseClick={() => {
+              setSelectedAirbnb(null);
+            }}
+          >
+            <InfoName>{selectedAirbnb.name}</InfoName>
+          </InfoWindow>
+        ) : null}
+        {/* map over hotels ap(i and create markers for each of them */}
+        hotelsResults && (
         {hotelsResults.map((hotel, index) => {
           return (
             <Marker
+              // spread creates a copy of the array to have numbers of markers to arrays length
+              {...hotelsResults}
               key={hotel.geoId}
               position={{
                 lat: hotel.latitude,
@@ -89,17 +120,15 @@ const EmptyMap = () => {
               onClick={() => {
                 setSelectedHotel(hotel);
               }}
-              // spread creates a copy of the array to have numbers of markers to arrays length
-              {...hotelsResults}
               icon={{
-                url: "/airbnb_icon_32.png",
+                url: "/hotel_icon_64.png",
                 scaledSize: new window.google.maps.Size(32, 32),
               }}
             />
           );
         })}
         {/* if a hotel is selected show info window */}
-        {selectedHotel && (
+        {selectedHotel ? (
           <InfoWindow
             position={{
               lat: selectedHotel.latitude,
@@ -114,9 +143,11 @@ const EmptyMap = () => {
           >
             <InfoName>{selectedHotel.name}</InfoName>
           </InfoWindow>
-        )}
+        ) : null}
+        )
       </>
     )
+    // )
   );
 };
 
@@ -125,15 +156,30 @@ const API_KEY = process.env.REACT_APP_GOOGLE_KEY;
 
 // this map will show an empty map - it's not being rendered
 const NullMap = () => {
-  return (
+  const {
+    airbnbResults,
+    hotelsResults,
+    selectedAirbnb,
+    setSelectedAirbnb,
+    selectedHotel,
+    setSelectedHotel,
+  } = useContext(SimpleContext);
+
+  console.log(hotelsResults);
+  return hotelsResults ? (
     <Wrapper>
       <PlanningDiv>
         <PlanningBar />
       </PlanningDiv>
       <ResultsDiv>
-        <Ul>
-          <li>Hotels details</li>
-        </Ul>
+        {hotelsResults.map((hotel) => {
+          return (
+            <Ul>
+              <li>Hotels details</li>
+              <li>{hotel.name}</li>
+            </Ul>
+          );
+        })}
 
         <MapDiv style={{ width: "70%", height: "80vh" }}>
           <WrappedMap
@@ -151,7 +197,7 @@ const NullMap = () => {
         </MapDiv>
       </ResultsDiv>
     </Wrapper>
-  );
+  ) : null;
 };
 const Wrapper = styled.div`
   display: flex;

@@ -17,7 +17,7 @@ const Hero = () => {
 const Wrapper = styled.div`
   position: relative;
   width: 100vw;
-  height: 100vh;
+  min-height: calc(100vh - 180px);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -28,7 +28,7 @@ const Wrapper = styled.div`
     top: 0;
     left: 0;
     width: 100vw;
-    height: 100vh;
+    min-height: calc(100vh - 180px);
     background: url(${heroImage});
     background-repeat: no-repeat;
     background-size: cover;

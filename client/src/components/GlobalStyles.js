@@ -77,7 +77,7 @@ h3 {
   font-size: 22px;
 }
 h4 {
-  font-size: 20px;
+  font-size: 18px;
 }
 p,
 a,

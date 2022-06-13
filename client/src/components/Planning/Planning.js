@@ -97,29 +97,29 @@ const Planning = () => {
     setDestination(userInput);
 
     // Airbnb api fetch
-    // const optionsAirbnb = {
-    //   method: "GET",
-    //   headers: {
-    //     "X-RapidAPI-Host": "airbnb13.p.rapidapi.com",
-    //     // we hide our API key in the .env file (environment variables)
-    //     "X-RapidAPI-Key": `${process.env.REACT_APP_AIRBNB_KEY}`,
-    //   },
-    // };
+    const optionsAirbnb = {
+      method: "GET",
+      headers: {
+        "X-RapidAPI-Host": "airbnb13.p.rapidapi.com",
+        // we hide our API key in the .env file (environment variables)
+        "X-RapidAPI-Key": `${process.env.REACT_APP_AIRBNB_KEY}`,
+      },
+    };
 
-    // fetch(
-    //   `https://airbnb13.p.rapidapi.com/search-location?location=${userInput}&checkin=${formatStartDate(
-    //     startDate
-    //   )}&checkout=${formatEndDate(
-    //     endDate
-    //   )}&adults=${guests}&children=0&infants=0&page=1`,
-    //   optionsAirbnb
-    // )
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     setAirbnbResults(data.results);
-    //     console.log(data.results);
-    //   })
-    //   .catch((err) => console.error(err));
+    fetch(
+      `https://airbnb13.p.rapidapi.com/search-location?location=${userInput}&checkin=${formatStartDate(
+        startDate
+      )}&checkout=${formatEndDate(
+        endDate
+      )}&adults=${guests}&children=0&infants=0&page=1`,
+      optionsAirbnb
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        setAirbnbResults(data.results);
+        console.log(data.results);
+      })
+      .catch((err) => console.error(err));
 
     // Hotels api fetch
     const optionsHotels = {
@@ -155,7 +155,7 @@ const Planning = () => {
       <TextDiv>
         Create your itineray from the best hotels and airbnbs available
       </TextDiv>
-      <Button onClick={handleOpenModal}>Start planing!</Button>
+      <Button onClick={handleOpenModal}>Start planning!</Button>
 
       <Dialog open={open} onClose={handleCloseModal}>
         <DialogTitle>Plan your trip</DialogTitle>
@@ -288,7 +288,7 @@ const Wrapper = styled.div`
 //   padding: 20px 0;
 //   font-weight: 400;
 // `;
-const TextDiv = styled.h3`
+const TextDiv = styled.h4`
   color: white;
   padding: 20px 0;
   font-weight: 200;
@@ -298,7 +298,7 @@ const Button = styled.button`
   color: white;
   margin-top: 0;
   font-weight: 400;
-  padding: 10px 35px;
+  padding: 10px 30px;
   font-size: 0.9rem;
   background-color: var(--color-primary);
   border: none;

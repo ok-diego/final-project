@@ -11,48 +11,51 @@ import {
 const Footer = () => {
   return (
     <Wrapper>
-      <Help>
+      <HelpContainer>
         <Copyright>© 2022 okdiego® - All rights reserved</Copyright>
-        <FooterDiv>
-          <HelpUl>
-            <li>
-              <LinkLogo to="/">
-                <LogoType>
-                  Simple <Span>Stay</Span>
-                </LogoType>
-              </LinkLogo>
-            </li>
-            <li>
-              <Button>Terms of use</Button>
-            </li>
-            {/* <li>
-            <Button>Privacy policy</Button>
-          </li> */}
-            <li>
-              <Button>Blog</Button>
-            </li>
-            <li>
-              <Button>About</Button>
-            </li>
-            <li>
-              <Button>Contact us</Button>
-            </li>
-          </HelpUl>
-        </FooterDiv>
-      </Help>
+        <HelpUl>
+          <li>
+            <LinkLogo to="/">
+              <LogoType>
+                Simple <Span>Stay</Span>
+              </LogoType>
+            </LinkLogo>
+          </li>
+          <li>
+            <LinkLogo to="/">
+              <Div>Blog</Div>
+            </LinkLogo>
+          </li>
+          <li>
+            <LinkLogo to="/">
+              <Div>About</Div>
+            </LinkLogo>
+          </li>
+          <li>
+            <LinkLogo to="/">
+              <Div>Terms of use</Div>
+            </LinkLogo>
+          </li>
+          <li>
+            <LinkLogo to="/">
+              <Div>Contact us</Div>
+            </LinkLogo>
+          </li>
+        </HelpUl>
+      </HelpContainer>
       <SocialUl>
-        <li>
+        <Li>
           <GrFacebookOption />
-        </li>
-        <li>
+        </Li>
+        <Li>
           <GrTwitter />
-        </li>
-        <li>
+        </Li>
+        <Li>
           <GrInstagram />
-        </li>
-        <li>
+        </Li>
+        <Li>
           <GrYoutube />
-        </li>
+        </Li>
       </SocialUl>
     </Wrapper>
   );
@@ -62,25 +65,20 @@ const Wrapper = styled.div`
   /* position: sticky; */
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: center;
   width: 100%;
-  min-height: 15vh;
+  min-height: 120px;
   background-color: #000;
   font-size: 0.9rem;
   color: gray;
 `;
-
-const Help = styled.div`
+const HelpContainer = styled.div`
   display: flex;
 `;
 const Copyright = styled.div`
   align-self: flex-start;
   padding: 20px 0 0 20px;
-`;
-
-const FooterDiv = styled.div`
-  padding-right: 0;
 `;
 const LogoType = styled.div`
   font-weight: 300;
@@ -99,8 +97,8 @@ const LinkLogo = styled(Link)`
     color: rgba(0, 0, 0, 0.8);
   }
 `;
-const Button = styled.button`
-  padding: 0 25px 0 25px;
+const Div = styled.div`
+  padding: 10px 25px 0 0;
   font-family: sans-serif;
   font-size: 1em;
   color: gray;
@@ -114,23 +112,25 @@ const Button = styled.button`
     cursor: pointer;
   }
 `;
-const ButtonSimple = styled.button`
-  padding: 0 25px 0 25px;
-  font-family: sans-serif;
-  font-size: 1em;
-  color: gray;
-  background: none;
-  border: 0;
-  height: 25px;
-  cursor: pointer;
-`;
 const HelpUl = styled.ul`
-  padding: 20px 20px;
+  padding: 20px 100px;
 `;
 const SocialUl = styled.ul`
   display: flex;
   align-items: flex-start;
-  padding: 0;
+  align-self: flex-start;
+  padding: 20px 200px 0 0;
+`;
+const Li = styled.li`
+  padding: 10px 11px;
+  margin: 0 5px;
+  border: 1px solid gray;
+  border-radius: 50%;
+
+  &:hover {
+    color: #d8d8d8;
+    cursor: pointer;
+  }
 `;
 
 export default Footer;
