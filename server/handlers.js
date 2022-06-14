@@ -88,7 +88,7 @@ const handleUserVerification = async (req, res, next) => {
   console.log("disconnected!");
 };
 
-// POST reservations
+// POST add reservation
 const handleAddReservation = async (req, res) => {
   // get email and reservation from req.body
   const { email, reservation } = req.body;
@@ -103,21 +103,30 @@ const handleAddReservation = async (req, res) => {
     // connect to the database
     const db = client.db("simple_stay");
 
+    // first filter for updateOne
+    // using email bc is unique for each user
+    // can also use the users id
     const queryObj = { email };
 
+    // second filter for updateOne
+    // $push adds a value to an array
+    // it accepts the field and value to add
+    // if the field doesn't exists it will create it
     const updateObj = { $push: { reservations: reservation } };
 
     const updateResult = await db
       .collection("users")
+      // updateOne accepts 3 parameters(filters) - option not added
+      // the document's field key and the key value we want to update
       .updateOne(queryObj, updateObj);
 
     // updateOne returns a few keys - deconstruct these two
     const { acknowledged, modifiedCount } = updateResult;
-    // if acknowledged is true and modoCount is greatr than 0
+    // if acknowledged is true and modifiedCount is greatr than 0
     if (acknowledged && modifiedCount > 0) {
       res
         .status(201)
-        .json({ status: 201, data: null, message: "reservation added" });
+        .json({ status: 201, data: reservation, message: "reservation added" });
     } else {
       res
         .status(500)

@@ -7,6 +7,7 @@ import Profile from "./Profile";
 import Reservation from "./Reservation";
 import Error from "./Error";
 import Footer from "./Footer/Footer";
+import Confirmation from "./Confirmation/Confirmation";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
             path="/reservation/:type/:reservationId"
             element={<Reservation />}
           />
+          <Route path="/confirmation" element={<Confirmation />} />
           <Route path="*" element={<Error />} />
         </Routes>
       </Layout>
