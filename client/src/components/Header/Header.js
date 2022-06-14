@@ -16,7 +16,7 @@ const Header = () => {
       </LinkLogo>
       {isAuthenticated && (
         <UserDiv>
-          Hello<UserProfile to="/profile">{user.name}</UserProfile>
+          Hello<UserProfile to="/profile">{user.nickname}</UserProfile>
         </UserDiv>
       )}
       {!isAuthenticated ? <LoginButton /> : <LogoutButton />}

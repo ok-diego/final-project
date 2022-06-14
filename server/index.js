@@ -5,7 +5,11 @@ const morgan = require("morgan");
 
 const PORT = 8000;
 
-const { handleUserVerification, handleCreateUser } = require("./handlers");
+const {
+  handleUserVerification,
+  handleCreateUser,
+  handleAddReservation,
+} = require("./handlers");
 
 express()
   .use(function (req, res, next) {
@@ -34,8 +38,10 @@ express()
   .post(
     "/user-verification/:auth0Sub",
     handleUserVerification,
-    handleCreateUser
+    handleCreateUser,
+    handleAddReservation
   )
   // POST user
+  .post("/user-reservation", handleAddReservation)
 
   .listen(PORT, () => console.info(`Listening on port ${PORT}`));

@@ -144,10 +144,10 @@ const Planning = () => {
         // we're passing 1 because we want hotels only
         setHotelsResults(codedResults);
         console.log(data.suggestions[1].entities);
-        setUserInput("");
-        setStartDate(null);
-        setEndDate(null);
-        setGuests(1);
+        // setUserInput("");
+        // setStartDate(null);
+        // setEndDate(null);
+        // setGuests(1);
         console.log(data.suggestions[1].entities);
       })
 

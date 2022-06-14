@@ -229,32 +229,32 @@ const NullMap = () => {
               return (
                 <>
                   <Ul key={airbnb.id}>
-                    <LinkCard to="/">
+                    <LinkCard to={`reservation/airbnb/${airbnb.id}`}>
                       <Li>{airbnb.name}</Li>
                     </LinkCard>
                   </Ul>
                 </>
               );
             })}
-          {/* {filterResults.all &&
+          {filterResults.all &&
             hotelsResults.map((hotel) => {
               return (
                 <>
                   <Ul>
-                    <LinkCard to="/">
+                    <LinkCard to={`reservation/hotel/${hotel.geoId}`}>
                       <Li>{hotel.name}</Li>
                     </LinkCard>
                   </Ul>
                 </>
               );
-            })} */}
+            })}
 
           {filterResults.airbnb &&
             airbnbResults.map((airbnb) => {
               return (
                 <>
                   <Ul key={airbnb.id}>
-                    <LinkCard to="/">
+                    <LinkCard to={`reservation/airbnb/${airbnb.id}`}>
                       <Li>{airbnb.name}</Li>
                     </LinkCard>
                   </Ul>
@@ -267,7 +267,7 @@ const NullMap = () => {
               return (
                 <>
                   <Ul key={hotel.geoId}>
-                    <LinkCard to="/">
+                    <LinkCard to={`reservation/hotel/${hotel.geoId}`}>
                       <Li>{hotel.name}</Li>
                     </LinkCard>
                   </Ul>

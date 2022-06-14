@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "./Header";
 import Home from "./Home";
 import Profile from "./Profile";
+import Reservation from "./Reservation";
 import Error from "./Error";
 import Footer from "./Footer/Footer";
 
@@ -16,6 +17,10 @@ function App() {
         <Routes>
           <Route exact path="/" element={<Home />} />
           <Route path="/profile" element={<Profile />} />
+          <Route
+            path="/reservation/:type/:reservationId"
+            element={<Reservation />}
+          />
           <Route path="*" element={<Error />} />
         </Routes>
       </Layout>

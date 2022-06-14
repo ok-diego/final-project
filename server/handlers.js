@@ -88,7 +88,48 @@ const handleUserVerification = async (req, res, next) => {
   console.log("disconnected!");
 };
 
+// POST reservations
+const handleAddReservation = async (req, res) => {
+  // get email and reservation from req.body
+  const { email, reservation } = req.body;
+
+  // creates a new mongodb client
+  const client = new MongoClient(MONGO_URI, options);
+
+  try {
+    // connect to the client
+    await client.connect();
+
+    // connect to the database
+    const db = client.db("simple_stay");
+
+    const queryObj = { email };
+
+    const updateObj = { $push: { reservations: reservation } };
+
+    const updateResult = await db
+      .collection("users")
+      .updateOne(queryObj, updateObj);
+
+    // updateOne returns a few keys - deconstruct these two
+    const { acknowledged, modifiedCount } = updateResult;
+    // if acknowledged is true and modoCount is greatr than 0
+    if (acknowledged && modifiedCount > 0) {
+      res
+        .status(201)
+        .json({ status: 201, data: null, message: "reservation added" });
+    } else {
+      res
+        .status(500)
+        .json({ status: 500, message: "unable to add reservation to db" });
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 module.exports = {
   handleUserVerification,
   handleCreateUser,
+  handleAddReservation,
 };
