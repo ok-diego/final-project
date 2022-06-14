@@ -62,7 +62,7 @@ const Footer = () => {
 };
 
 const Wrapper = styled.div`
-  /* position: sticky; */
+  position: sticky;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;

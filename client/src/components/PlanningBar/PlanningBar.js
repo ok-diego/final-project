@@ -137,9 +137,17 @@ const PlanningBar = () => {
     )
       .then((response) => response.json())
       .then((data) => {
+        const codedResults = [];
+        data.suggestions[1].entities.forEach((hotel) => {
+          codedResults.push({ ...hotel, price: "$100" });
+        });
         // we're passing 1 because we want hotels only
-        setHotelsResults(data.suggestions[1].entities);
+        setHotelsResults(codedResults);
         console.log(data.suggestions[1].entities);
+        setUserInput("");
+        setStartDate(null);
+        setEndDate(null);
+        setGuests(1);
       })
 
       .catch((err) => console.error(err));

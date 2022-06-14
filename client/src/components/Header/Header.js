@@ -24,6 +24,7 @@ const Header = () => {
   );
 };
 const Wrapper = styled.div`
+  position: sticky;
   display: flex;
   justify-content: space-between;
   flex-direction: row;

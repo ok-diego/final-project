@@ -2,6 +2,7 @@
 import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import { SimpleContext } from "../SimpleContext";
+import { Link } from "react-router-dom";
 
 // react google map imports
 import {
@@ -165,23 +166,116 @@ const NullMap = () => {
     setSelectedHotel,
   } = useContext(SimpleContext);
 
-  console.log(hotelsResults);
-  return hotelsResults ? (
+  const [filterResults, setFilterResults] = useState({
+    all: true,
+    airbnb: false,
+    hotels: false,
+  });
+  console.log(filterResults);
+
+  // set an event handler func to set our initial state
+  const filterHandler = (event) => {
+    // store the event.target.value for less typing
+    const isChecked = event.target.checked;
+    // ... keeps all the values of our initial state object untouched
+    // except for the one we want - for this we need a key and value
+    // the key is in [] because it's dyanmic - it can be any of our set names
+    // they help us dynamically change the key
+    // the value refers to our set checked inside input
+    setFilterResults({ ...filterResults, [event.target.name]: isChecked });
+  };
+
+  return airbnbResults && hotelsResults ? (
     <Wrapper>
       <PlanningDiv>
         <PlanningBar />
       </PlanningDiv>
       <ResultsDiv>
-        {hotelsResults.map((hotel) => {
-          return (
-            <Ul>
-              <li>Hotels details</li>
-              <li>{hotel.name}</li>
-            </Ul>
-          );
-        })}
+        <CardsDiv>
+          <FilterDiv>
+            {/* checked sets if the radio button is checked or not - accepts a boolean value */}
+            <input
+              // style={{ "border-radius": "100%" }}
+              type="checkbox"
+              value="ALL"
+              name="all"
+              checked={filterResults.all}
+              onChange={filterHandler}
+            />
+            <span>ALL</span>
 
-        <MapDiv style={{ width: "70%", height: "80vh" }}>
+            <input
+              type="checkbox"
+              value="Airbnb"
+              name="airbnb"
+              checked={filterResults.airbnb}
+              onChange={filterHandler}
+            />
+            <span>Airbnb</span>
+
+            <input
+              type="checkbox"
+              value="Hotels"
+              name="hotels"
+              checked={filterResults.hotels}
+              onChange={filterHandler}
+            />
+            <span>Hotels</span>
+          </FilterDiv>
+          {/* <DetailsDiv>Hotels details</DetailsDiv> */}
+
+          {filterResults.all &&
+            airbnbResults.map((airbnb) => {
+              return (
+                <>
+                  <Ul key={airbnb.id}>
+                    <LinkCard to="/">
+                      <Li>{airbnb.name}</Li>
+                    </LinkCard>
+                  </Ul>
+                </>
+              );
+            })}
+          {/* {filterResults.all &&
+            hotelsResults.map((hotel) => {
+              return (
+                <>
+                  <Ul>
+                    <LinkCard to="/">
+                      <Li>{hotel.name}</Li>
+                    </LinkCard>
+                  </Ul>
+                </>
+              );
+            })} */}
+
+          {filterResults.airbnb &&
+            airbnbResults.map((airbnb) => {
+              return (
+                <>
+                  <Ul key={airbnb.id}>
+                    <LinkCard to="/">
+                      <Li>{airbnb.name}</Li>
+                    </LinkCard>
+                  </Ul>
+                </>
+              );
+            })}
+
+          {filterResults.hotels &&
+            hotelsResults.map((hotel) => {
+              return (
+                <>
+                  <Ul key={hotel.geoId}>
+                    <LinkCard to="/">
+                      <Li>{hotel.name}</Li>
+                    </LinkCard>
+                  </Ul>
+                </>
+              );
+            })}
+        </CardsDiv>
+        <MapDiv style={{ width: "70%", height: "75vh" }}>
           <WrappedMap
             googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${API_KEY}`}
             loadingElement={
@@ -217,14 +311,56 @@ const PlanningDiv = styled.div`
 `;
 const ResultsDiv = styled.div`
   display: flex;
+  flex-direction: row;
   width: 100%;
   height: auto;
   align-self: flex-start;
   border-top: 1px solid var(--color-light-blue);
 `;
-const Ul = styled.ul`
+const CardsDiv = styled.div`
+  display: flex;
+  flex-direction: column;
   width: 30%;
-  padding: 20px;
+  height: 70vh;
+  overflow: auto;
+`;
+const FilterDiv = styled.div`
+  padding: 20px 0 10px 20px;
+`;
+const DetailsDiv = styled.div`
+  width: 50%;
+  padding: 20px 0 10px 20px;
+  color: black;
+  font-weight: 400;
+  font-size: 18px;
+`;
+const Ul = styled.ul`
+  display: flex;
+  flex-flow: column wrap;
+  padding: 5px 0 10px 20px;
+`;
+const Li = styled.li`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 500px;
+  height: 100px;
+  border: 1px solid #d8d8d8;
+  border-radius: 15px;
+  padding: 20px 15px;
+  box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.1), 0 2px 8px 0 rgba(0, 0, 0, 0.12);
+`;
+const LinkCard = styled(Link)`
+  color: var(--color-primary);
+  text-decoration: none;
+  width: 500px;
+  border-radius: 15px;
+
+  &:hover {
+    color: rgba(0, 0, 0, 0.8);
+    box-shadow: 0 2px 3px 0 rgba(160, 174, 217, 0.16),
+      0 2px 8px 0 rgba(160, 174, 217, 0.12);
+  }
 `;
 
 export default NullMap;
