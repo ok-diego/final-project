@@ -258,6 +258,9 @@ const NullMap = () => {
                               <LiBold>{airbnb.rating}</LiBold> Guest rating
                             </LiSpanRating>
                             <LiSpanType>{airbnb.type}</LiSpanType>
+                            <LiSpanReviews>
+                              <LiBold>{airbnb.persons}</LiBold> Reviews
+                            </LiSpanReviews>
                             <LiSpanPrice>
                               Price: {airbnb.price.priceItems[0].title}
                             </LiSpanPrice>
@@ -454,10 +457,8 @@ const Li = styled.li`
   position: relative;
   width: 520px;
   height: 140px;
-  border: 1px solid #d8d8d8;
   border-radius: 15px;
   padding: 20px 15px;
-  box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.1), 0 2px 8px 0 rgba(0, 0, 0, 0.12);
 `;
 const LiTitle = styled.span`
   position: relative;
@@ -483,12 +484,10 @@ const DetailsDiv = styled.div`
   width: 520px;
   height: 140px;
   border-radius: 15px;
-  border: none;
+  border: 1px solid #d8d8d8;
 
   &:hover {
-    /* color: rgba(0, 0, 0, 0.8); */
-    box-shadow: 0 2px 0px 0 rgba(160, 174, 217, 0.1),
-      0 2px 0px 0 rgba(160, 174, 217, 0.12);
+    box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.1), 0 2px 8px 0 rgba(0, 0, 0, 0.12);
   }
 `;
 // const LinkCard = styled(Link)`
@@ -510,16 +509,13 @@ const Button = styled.button`
   text-align: left;
   font-size: 1rem;
   background-color: white;
-  border: none;
-  /* width: 520px;
-  height: 140px; */
+  border: 1px solid #d8d8d8;
   border-radius: 15px;
   cursor: pointer;
 
   &:hover {
     /* color: rgba(0, 0, 0, 0.8); */
-    /* box-shadow: 0 2px 3px 0 rgba(160, 174, 217, 0.16),
-      0 2px 8px 0 rgba(160, 174, 217, 0.12); */
+    box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.1), 0 2px 8px 0 rgba(0, 0, 0, 0.12);
   }
 `;
 const LiDetails = styled.div`
@@ -535,6 +531,14 @@ const LiSpanRating = styled.span`
 const LiSpanType = styled.span`
   color: gray;
   padding: 10px 0;
+`;
+const LiSpanReviews = styled.span`
+  color: gray;
+  padding: 8px 5px;
+  width: 80px;
+  text-align: center;
+  border-radius: 3px;
+  background-color: #c8d5e0;
 `;
 const LiSpanPrice = styled.span`
   font-weight: 600;

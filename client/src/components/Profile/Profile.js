@@ -4,11 +4,13 @@ import React from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useContext, useEffect } from "react";
 import { SimpleContext } from "../SimpleContext";
+import { useState } from "react";
 
 const Profile = () => {
   const { user, isAuthenticated, isLoading } = useAuth0();
 
   const { userReservations, setUserReservations } = useContext(SimpleContext);
+  // const [update, setUpdate] = useState(false);
 
   const navigate = useNavigate();
 
@@ -25,7 +27,7 @@ const Profile = () => {
       fetch(`/user-reservations/${user.email}`)
         .then((res) => res.json())
         .then((parsedResponse) => {
-          // console.log(parsedResponse.data);
+          console.log(parsedResponse.data);
           setUserReservations(parsedResponse.data);
         })
         .catch((error) => {
@@ -33,6 +35,32 @@ const Profile = () => {
         });
     }
   }, []);
+
+  const handleRemoveReservation = (ev, email, reservationId) => {
+    ev.preventDefault();
+
+    // DELETE request to BE
+    try {
+      fetch(`/user-reservation/${email}/${reservationId}`, {
+        method: "DELETE",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      })
+        .then((res) => res.json())
+        .then((parsedResponse) => {
+          console.log("Hi", parsedResponse);
+
+          // setUpdate(!update);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   if (isAuthenticated) {
     // console.log(user);
@@ -56,7 +84,7 @@ const Profile = () => {
         <TextRes>Manage you reservations</TextRes>
         {userReservations.map((reservation) => {
           return (
-            <>
+            <React.Fragment key={reservation.reservationId}>
               <DetailsDiv>
                 <TextName>{reservation.name}</TextName>
                 <TextAddress>
@@ -66,12 +94,23 @@ const Profile = () => {
                   <SpanBold>Type:</SpanBold> {reservation.type}
                 </TextType>
                 <TextBedroom>
-                  <SpanBold>Bedrooms:</SpanBold>{" "}
+                  <SpanBold>Bedrooms:</SpanBold>
                   <SpanNumber>{reservation.bedrooms}</SpanNumber>
-                  <LinkDelete to="/">Delete</LinkDelete>
+                  {/* <LinkDelete to="/">Delete</LinkDelete> */}
+                  <Button
+                    onClick={(ev) => {
+                      handleRemoveReservation(
+                        ev,
+                        user.email,
+                        reservation.reservationId
+                      );
+                    }}
+                  >
+                    Delete
+                  </Button>
                 </TextBedroom>
               </DetailsDiv>
-            </>
+            </React.Fragment>
           );
         })}
       </Wrapper>
@@ -153,6 +192,23 @@ const LinkDelete = styled(Link)`
   align-self: flex-end;
   margin: 0 0 0 200px;
   padding: 4px 5px;
+  background-color: var(--color-light-green);
+  font-size: 0.9rem;
+
+  &:hover {
+    color: rgba(0, 0, 0, 0.8);
+    box-shadow: 0 2px 3px 0 rgba(160, 174, 217, 0.16),
+      0 2px 8px 0 rgba(160, 174, 217, 0.12);
+  }
+`;
+const Button = styled.button`
+  color: var(--color-primary);
+  text-decoration: none;
+  border-radius: 5px;
+  align-self: flex-end;
+  margin: 0 0 0 200px;
+  padding: 4px 5px;
+  border: none;
   background-color: var(--color-light-green);
   font-size: 0.9rem;
 

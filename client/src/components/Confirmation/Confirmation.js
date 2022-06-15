@@ -1,16 +1,15 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { useAuth0 } from "@auth0/auth0-react";
+import Hero2 from "../Hero2";
 
 const Confirmation = () => {
-  const { user, isAuthenticated, isLoading } = useAuth0();
-
   return (
     <Wrapper>
-      <TextDiv>Your reservation has been placed!</TextDiv>
+      <Hero2 />
+      {/* <TextDiv>Your reservation has been placed!</TextDiv>
       <TextDiv>
         <LinkProfile to="/profile/">See reservation details</LinkProfile>
-      </TextDiv>
+      </TextDiv> */}
     </Wrapper>
   );
 };
@@ -18,7 +17,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20vh;
+  /* padding: 20vh; */
 `;
 const TextDiv = styled.div`
   color: black;

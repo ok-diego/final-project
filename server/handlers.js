@@ -283,16 +283,20 @@ const handleRemoveReservation = async (req, res) => {
 
     // search query finds the user id
     // and access the resersvations and reservation Id in the array
+    // const query = {
+    //   email: req.params.email,
+    //   // "reservations.reservationId": req.params.reservationId,
+    // };
+
     const query = {
       email: req.params.email,
-      "reservations.reservationId": req.params.reservationId,
     };
 
     // update query
     const updateQuery = {
       $pull: {
         reservations: {
-          "reservations.reservationId": req.params.reservationId,
+          reservationId: req.params.reservationId,
         },
       },
     };
