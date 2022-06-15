@@ -90,7 +90,7 @@ const handleUserVerification = async (req, res, next) => {
 
 // POST add reservation
 const handleAddReservation = async (req, res) => {
-  // get email and reservation from req.body
+  // get email and reservation from req.body object
   const { email, reservation } = req.body;
 
   // creates a new mongodb client
@@ -135,10 +135,123 @@ const handleAddReservation = async (req, res) => {
   } catch (error) {
     console.log(error);
   }
+  client.close();
+  console.log("disconnected!");
+};
+
+// GET user reservation
+const handleGetReservation = async (req, res) => {
+  // create a new Mongodb client
+  const client = new MongoClient(MONGO_URI, options);
+
+  try {
+    // connect to the client
+    await client.connect();
+
+    // connect to db
+    const db = client.db("simple_stay");
+
+    const { email, reservation } = req.body;
+
+    const queryObj = { email };
+
+    const findObj = { "reservation.$": reservationId };
+
+    const reservationId = req.params._id;
+    console.log(reservationId);
+
+    const findOneResult = await db
+      .collection("users")
+      .findOne(queryObj, findObj);
+
+    if (findOneResult) {
+      res.status(200).json({
+        status: 200,
+        data: findOneResult,
+        message: "reservation found",
+      });
+    } else {
+      res
+        .status(404)
+        .json({ status: 404, data: null, message: "reservation not found" });
+    }
+  } catch (error) {
+    console.log(error);
+  }
+  client.close();
+  console.log("disconnected!");
+};
+
+// GET user reservation
+const getUserReservations = async (req, res) => {
+  // create a new Mongodb client
+  const client = new MongoClient(MONGO_URI, options);
+
+  try {
+    // connect to the client
+    await client.connect();
+
+    // connect to db
+    const db = client.db("simple_stay");
+
+    const findAllResults = await db.collection("users").find().toArray();
+
+    if (findAllResults.length > 0) {
+      res.status(200).json({
+        status: 200,
+        data: findAllResults,
+        message: "reservations found",
+      });
+    } else {
+      res
+        .status(404)
+        .json({ status: 404, data: null, message: "reservations not found" });
+    }
+  } catch (error) {
+    console.log(error);
+  }
+  client.close();
+  console.log("disconnected!");
+};
+
+// GET user reservation
+const handleGetProfile = async (req, res) => {
+  // create a new Mongodb client
+  const client = new MongoClient(MONGO_URI, options);
+
+  try {
+    // connect to the client
+    await client.connect();
+
+    // connect to db
+    const db = client.db("simple_stay");
+
+    const { email } = req.params;
+
+    const queryObj = { email };
+
+    const findOneResult = await db.collection("users").findOne(queryObj);
+
+    if (findOneResult) {
+      res.status(200).json({
+        status: 200,
+        data: findOneResult,
+        message: "reservation found",
+      });
+    } else {
+      res
+        .status(404)
+        .json({ status: 404, data: null, message: "reservation not found" });
+    }
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 module.exports = {
   handleUserVerification,
   handleCreateUser,
   handleAddReservation,
+  handleGetReservation,
+  getUserReservations,
 };

@@ -2,7 +2,8 @@
 import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import { SimpleContext } from "../SimpleContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { FiHeart } from "react-icons/fi";
 
 // react google map imports
 import {
@@ -166,6 +167,12 @@ const NullMap = () => {
     setSelectedHotel,
   } = useContext(SimpleContext);
 
+  const navigate = useNavigate();
+
+  const handleNavigateReservation = (url) => {
+    navigate(url);
+  };
+
   const [filterResults, setFilterResults] = useState({
     all: true,
     airbnb: false,
@@ -229,9 +236,36 @@ const NullMap = () => {
               return (
                 <>
                   <Ul key={airbnb.id}>
-                    <LinkCard to={`reservation/airbnb/${airbnb.id}`}>
-                      <Li>{airbnb.name}</Li>
-                    </LinkCard>
+                    {/* <LinkCard to={`reservation/airbnb/${airbnb.id}`}> */}
+                    <DetailsDiv>
+                      <Button
+                        onClick={() => {
+                          setSelectedAirbnb(airbnb);
+                          handleNavigateReservation(
+                            `reservation/airbnb/${airbnb.id}`
+                          );
+                        }}
+                      >
+                        <Li key={airbnb.id}>
+                          <LiTitle>
+                            <LiName>{airbnb.name}</LiName>
+                            <LiHeart>
+                              <FiHeart />
+                            </LiHeart>
+                          </LiTitle>
+                          <LiDetails>
+                            <LiSpanRating>
+                              <LiBold>{airbnb.rating}</LiBold> Guest rating
+                            </LiSpanRating>
+                            <LiSpanType>{airbnb.type}</LiSpanType>
+                            <LiSpanPrice>
+                              Price: {airbnb.price.priceItems[0].title}
+                            </LiSpanPrice>
+                          </LiDetails>
+                        </Li>
+                      </Button>
+                    </DetailsDiv>
+                    {/* </LinkCard> */}
                   </Ul>
                 </>
               );
@@ -240,10 +274,37 @@ const NullMap = () => {
             hotelsResults.map((hotel) => {
               return (
                 <>
-                  <Ul>
-                    <LinkCard to={`reservation/hotel/${hotel.geoId}`}>
-                      <Li>{hotel.name}</Li>
-                    </LinkCard>
+                  <Ul key={hotel.geoId}>
+                    {/* <LinkCard to={`reservation/hotel/${hotel.geoId}`}> */}
+                    <DetailsDiv>
+                      <Button
+                        onClick={() => {
+                          setSelectedHotel(hotel);
+                          handleNavigateReservation(
+                            `reservation/hotel/${hotel.geoId}`
+                          );
+                        }}
+                      >
+                        <Li key={hotel.geoId}>
+                          <LiTitle>
+                            <LiName>{hotel.name}</LiName>
+                            <LiHeart>
+                              <FiHeart />
+                            </LiHeart>
+                          </LiTitle>
+                          <LiDetails>
+                            <LiSpanRating>
+                              <LiBold>4.8</LiBold> Guest rating
+                            </LiSpanRating>
+                            <LiSpanType>
+                              Room: 1 x Standard Double Room
+                            </LiSpanType>
+                            <LiSpanPrice>Price: $360 / night</LiSpanPrice>
+                          </LiDetails>
+                        </Li>
+                      </Button>
+                    </DetailsDiv>
+                    {/* </LinkCard> */}
                   </Ul>
                 </>
               );
@@ -254,9 +315,36 @@ const NullMap = () => {
               return (
                 <>
                   <Ul key={airbnb.id}>
-                    <LinkCard to={`reservation/airbnb/${airbnb.id}`}>
-                      <Li>{airbnb.name}</Li>
-                    </LinkCard>
+                    {/* <LinkCard to={`reservation/airbnb/${airbnb.id}`}> */}
+                    <DetailsDiv>
+                      <Button
+                        onClick={() => {
+                          setSelectedAirbnb(airbnb);
+                          handleNavigateReservation(
+                            `reservation/airbnb/${airbnb.id}`
+                          );
+                        }}
+                      >
+                        <Li key={airbnb.id}>
+                          <LiTitle>
+                            <LiName>{airbnb.name}</LiName>
+                            <LiHeart>
+                              <FiHeart />
+                            </LiHeart>
+                          </LiTitle>
+                          <LiDetails>
+                            <LiSpanRating>
+                              <LiBold>{airbnb.rating}</LiBold> Guest rating
+                            </LiSpanRating>
+                            <LiSpanType>{airbnb.type}</LiSpanType>
+                            <LiSpanPrice>
+                              Price: {airbnb.price.priceItems[0].title}
+                            </LiSpanPrice>
+                          </LiDetails>
+                        </Li>
+                      </Button>
+                    </DetailsDiv>
+                    {/* </LinkCard> */}
                   </Ul>
                 </>
               );
@@ -267,9 +355,36 @@ const NullMap = () => {
               return (
                 <>
                   <Ul key={hotel.geoId}>
-                    <LinkCard to={`reservation/hotel/${hotel.geoId}`}>
-                      <Li>{hotel.name}</Li>
-                    </LinkCard>
+                    {/* <LinkCard to={`reservation/hotel/${hotel.geoId}`}> */}
+                    <DetailsDiv>
+                      <Button
+                        onClick={() => {
+                          setSelectedHotel(hotel);
+                          handleNavigateReservation(
+                            `reservation/hotel/${hotel.geoId}`
+                          );
+                        }}
+                      >
+                        <Li key={hotel.geoId}>
+                          <LiTitle>
+                            <LiName>{hotel.name}</LiName>
+                            <LiHeart>
+                              <FiHeart />
+                            </LiHeart>
+                          </LiTitle>
+                          <LiDetails>
+                            <LiSpanRating>
+                              <LiBold>4.8</LiBold> Guest rating
+                            </LiSpanRating>
+                            <LiSpanType>
+                              Room: 1 x Standard Double Room
+                            </LiSpanType>
+                            <LiSpanPrice>Price: $360 / night</LiSpanPrice>
+                          </LiDetails>
+                        </Li>
+                      </Button>
+                    </DetailsDiv>
+                    {/* </LinkCard> */}
                   </Ul>
                 </>
               );
@@ -327,13 +442,6 @@ const CardsDiv = styled.div`
 const FilterDiv = styled.div`
   padding: 20px 0 10px 20px;
 `;
-const DetailsDiv = styled.div`
-  width: 50%;
-  padding: 20px 0 10px 20px;
-  color: black;
-  font-weight: 400;
-  font-size: 18px;
-`;
 const Ul = styled.ul`
   display: flex;
   flex-flow: column wrap;
@@ -343,24 +451,105 @@ const Li = styled.li`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  width: 500px;
-  height: 100px;
+  position: relative;
+  width: 520px;
+  height: 140px;
   border: 1px solid #d8d8d8;
   border-radius: 15px;
   padding: 20px 15px;
   box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.1), 0 2px 8px 0 rgba(0, 0, 0, 0.12);
 `;
-const LinkCard = styled(Link)`
-  color: var(--color-primary);
-  text-decoration: none;
-  width: 500px;
-  border-radius: 15px;
+const LiTitle = styled.span`
+  position: relative;
+  padding: 0 0 0 0;
+  width: 480px;
+`;
+const LiName = styled.span`
+  padding: 0 0 0 0;
+`;
+const LiHeart = styled.span`
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0 0 0 0;
 
   &:hover {
-    color: rgba(0, 0, 0, 0.8);
-    box-shadow: 0 2px 3px 0 rgba(160, 174, 217, 0.16),
-      0 2px 8px 0 rgba(160, 174, 217, 0.12);
+    color: red;
   }
+`;
+const DetailsDiv = styled.div`
+  color: var(--color-primary);
+  text-decoration: none;
+  width: 520px;
+  height: 140px;
+  border-radius: 15px;
+  border: none;
+
+  &:hover {
+    /* color: rgba(0, 0, 0, 0.8); */
+    box-shadow: 0 2px 0px 0 rgba(160, 174, 217, 0.1),
+      0 2px 0px 0 rgba(160, 174, 217, 0.12);
+  }
+`;
+// const LinkCard = styled(Link)`
+//   color: var(--color-primary);
+//   text-decoration: none;
+//   width: 520px;
+//   height: 140px;
+//   border-radius: 15px;
+
+//   &:hover {
+//     color: rgba(0, 0, 0, 0.8);
+//     box-shadow: 0 2px 3px 0 rgba(160, 174, 217, 0.16),
+//       0 2px 8px 0 rgba(160, 174, 217, 0.12);
+//   }
+// `;
+const Button = styled.button`
+  color: var(--color-primary);
+  text-decoration: none;
+  text-align: left;
+  font-size: 1rem;
+  background-color: white;
+  border: none;
+  /* width: 520px;
+  height: 140px; */
+  border-radius: 15px;
+  cursor: pointer;
+
+  &:hover {
+    /* color: rgba(0, 0, 0, 0.8); */
+    /* box-shadow: 0 2px 3px 0 rgba(160, 174, 217, 0.16),
+      0 2px 8px 0 rgba(160, 174, 217, 0.12); */
+  }
+`;
+const LiDetails = styled.div`
+  display: flex;
+  flex-flow: column wrap;
+  width: 500px;
+  font-size: 0.8rem;
+  padding: 10px 0;
+`;
+const LiSpanRating = styled.span`
+  color: gray;
+`;
+const LiSpanType = styled.span`
+  color: gray;
+  padding: 10px 0;
+`;
+const LiSpanPrice = styled.span`
+  font-weight: 600;
+  padding: 8px 8px;
+  text-align: right;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: 3px 15px 15px 0;
+  border-radius: 3px;
+  /* background-color: var(--color-light-blue); */
+`;
+const LiBold = styled.span`
+  color: #000;
+  font-weight: 600;
 `;
 
 export default NullMap;

@@ -4,6 +4,7 @@ import { SimpleContext } from "../SimpleContext";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { formatStartDate, formatEndDate } from "../common/formatDate";
 import {
   TextField,
   Dialog,
@@ -53,41 +54,36 @@ const PlanningBar = () => {
   };
 
   // date formatting for airbnb fetch query
-  const formatStartDate = (date) => {
-    if (!date) return "";
+  // const formatStartDate = (date) => {
+  //   if (!date) return "";
 
-    // date object index starts at 0 for months - so we add 1 for january
-    let month = 1 + date.getMonth();
+  //   // date object index starts at 0 for months - so we add 1 for january
+  //   let month = 1 + date.getMonth();
 
-    // months before 10 only display one number - so we add 0 before it
-    if (month < 10) {
-      month = "0" + month;
-    }
+  //   // months before 10 only display one number - so we add 0 before it
+  //   if (month < 10) {
+  //     month = "0" + month;
+  //   }
 
-    if (date) {
-      return `${date.getFullYear()}-${month}-${date.getDate()}`;
-    }
-  };
+  //   if (date) {
+  //     return `${date.getFullYear()}-${month}-${date.getDate()}`;
+  //   }
+  // };
 
-  const formatEndDate = (date) => {
-    if (!date) return "";
+  // const formatEndDate = (date) => {
+  //   if (!date) return "";
 
-    // date object index starts at 0 for months - so we add 1 for january
-    let month = 1 + date.getMonth();
+  //   // date object index starts at 0 for months - so we add 1 for january
+  //   let month = 1 + date.getMonth();
 
-    if (month < 10) {
-      month = "0" + month;
-    }
+  //   if (month < 10) {
+  //     month = "0" + month;
+  //   }
 
-    if (date) {
-      return `${date.getFullYear()}-${month}-${date.getDate()}`;
-    }
-  };
-
-  console.log(formatStartDate(startDate));
-  console.log(formatEndDate(endDate));
-  // console.log(startDate);
-  // console.log(endDate);
+  //   if (date) {
+  //     return `${date.getFullYear()}-${month}-${date.getDate()}`;
+  //   }
+  // };
 
   const handleSubmit = (event) => {
     event.preventDefault();

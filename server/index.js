@@ -9,6 +9,8 @@ const {
   handleUserVerification,
   handleCreateUser,
   handleAddReservation,
+  handleGetReservation,
+  getUserReservations,
 } = require("./handlers");
 
 express()
@@ -43,5 +45,10 @@ express()
   )
   // POST user
   .post("/user-reservation", handleAddReservation)
+
+  // GET user reservation
+  .post("/user-reservation/:_id", handleGetReservation)
+
+  .post("/get-user-reservations", getUserReservations)
 
   .listen(PORT, () => console.info(`Listening on port ${PORT}`));

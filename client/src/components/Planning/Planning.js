@@ -4,6 +4,7 @@ import { SimpleContext } from "../SimpleContext";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { formatStartDate, formatEndDate } from "../common/formatDate";
 import {
   TextField,
   Dialog,
@@ -22,8 +23,10 @@ const Planning = () => {
   const {
     destination,
     setDestination,
-    date,
-    setDate,
+    startDate,
+    setStartDate,
+    endDate,
+    setEndDate,
     airbnbResults,
     setAirbnbResults,
     hotelsResults,
@@ -32,8 +35,8 @@ const Planning = () => {
 
   const [userInput, setUserInput] = useState("");
   // date picker states
-  const [startDate, setStartDate] = useState(null);
-  const [endDate, setEndDate] = useState(null);
+  // const [startDate, setStartDate] = useState(null);
+  // const [endDate, setEndDate] = useState(null);
 
   // modal dialog states
   const [open, setOpen] = useState(false);
@@ -49,38 +52,6 @@ const Planning = () => {
   const handleCloseModal = () => {
     setOpen(false);
     setClose(true);
-  };
-
-  // date formatting for airbnb fetch query
-  const formatStartDate = (date) => {
-    if (!date) return "";
-
-    // date object index starts at 0 for months - so we add 1 for january
-    let month = 1 + date.getMonth();
-
-    // months before 10 only display one number - so we add 0 before it
-    if (month < 10) {
-      month = "0" + month;
-    }
-
-    if (date) {
-      return `${date.getFullYear()}-${month}-${date.getDate()}`;
-    }
-  };
-
-  const formatEndDate = (date) => {
-    if (!date) return "";
-
-    // date object index starts at 0 for months - so we add 1 for january
-    let month = 1 + date.getMonth();
-
-    if (month < 10) {
-      month = "0" + month;
-    }
-
-    if (date) {
-      return `${date.getFullYear()}-${month}-${date.getDate()}`;
-    }
   };
 
   console.log(formatStartDate(startDate));
