@@ -1,6 +1,6 @@
+import styled from "styled-components";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
-import styled from "styled-components";
 import { useContext } from "react";
 import { SimpleContext } from "../SimpleContext";
 import { formatStartDate, formatEndDate } from "../common/formatDate";
@@ -11,38 +11,16 @@ const Reservation = () => {
   const { type, reservationId } = useParams();
   // console.log(type, reservationId);
 
-  const { user, isAuthenticated, isLoading } = useAuth0();
+  const { user } = useAuth0();
   console.log(user);
 
-  const {
-    airbnbResults,
-    hotelsResults,
-    selectedAirbnb,
-    setSelectedAirbnb,
-    selectedHotel,
-    setSelectedHotel,
-    startDate,
-    setStartDate,
-    endDate,
-    setEndDate,
-    userReservation,
-    setUserReservation,
-  } = useContext(SimpleContext);
+  const { selectedAirbnb, startDate, endDate, setUserReservations } =
+    useContext(SimpleContext);
 
   const navigate = useNavigate();
 
   const handleNavigateConfirmation = () => {
     navigate("/confirmation");
-  };
-
-  // set localStorage to save reservationId
-  const reservationIdLocStorage = (id) => {
-    localStorage.setItem("reservationId", id);
-  };
-
-  // set localStorage to save user email(id)
-  const userIdLocStorage = (id) => {
-    localStorage.setItem("email", id);
   };
 
   const handleSubmitReservation = (ev) => {
@@ -80,8 +58,7 @@ const Reservation = () => {
         .then((parsedResponse) => {
           console.log("Hi", parsedResponse);
 
-          setUserReservation(parsedResponse.data);
-          reservationIdLocStorage(parsedResponse.data.reservationId);
+          setUserReservations(parsedResponse.data);
 
           if (parsedResponse.status === 201) {
             handleNavigateConfirmation();

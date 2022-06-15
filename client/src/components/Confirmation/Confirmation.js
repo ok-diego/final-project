@@ -1,31 +1,9 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
-import { useContext, useEffect } from "react";
-import { SimpleContext } from "../SimpleContext";
 
 const Confirmation = () => {
   const { user, isAuthenticated, isLoading } = useAuth0();
-  console.log(user);
-
-  const { profileData, setProfileData } = useContext(SimpleContext);
-
-  // fetch handle 'profile' data
-  //   useEffect(() => {
-  //     // adding profileId will fetch each user's api profile data
-  //     fetch(`/api/profile/${user.email}`)
-  //       .then((res) => res.json())
-  //       .then((data) => {
-  //         console.log(data);
-  //         // we set our fetched data to the 'profile' state!
-  //         setProfileData(data.profile);
-  //       })
-  //       .catch((error) => {
-  //         console.log(`Error in Profile: ${error}`);
-  //       });
-  //   }, []);
-
-  //   console.log(profileData);
 
   return (
     <Wrapper>

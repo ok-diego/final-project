@@ -10,7 +10,9 @@ const {
   handleCreateUser,
   handleAddReservation,
   handleGetReservation,
-  getUserReservations,
+  handleGetReservations,
+  handleDeleteReservation,
+  handleRemoveReservation,
 } = require("./handlers");
 
 express()
@@ -37,18 +39,25 @@ express()
   // POST user
   // verify if user exists or create one
   // sub is auth0's id
-  .post(
-    "/user-verification/:auth0Sub",
-    handleUserVerification,
-    handleCreateUser,
-    handleAddReservation
-  )
+  // .post(
+  //   "/user-verification/:auth0Sub",
+  //   handleUserVerification,
+  //   handleCreateUser,
+  //   handleAddReservation
+  // )
   // POST user
   .post("/user-reservation", handleAddReservation)
 
   // GET user reservation
-  .post("/user-reservation/:_id", handleGetReservation)
+  .get("/user-reservation/:email", handleGetReservation)
 
-  .post("/get-user-reservations", getUserReservations)
+  // email becomes the key in req.params in handler function
+  .get("/user-reservations/:email", handleGetReservations)
+
+  // DELETE reservation
+  // .delete("/user-reservation/:reservationId", handleDeleteReservation)
+
+  // REMOVE reservation
+  .delete("/user-reservation/:email/:reservationId", handleRemoveReservation)
 
   .listen(PORT, () => console.info(`Listening on port ${PORT}`));

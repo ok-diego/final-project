@@ -11,8 +11,9 @@ export const SimpleProvider = ({ children }) => {
   const [hotelsResults, setHotelsResults] = useState("");
   const [selectedAirbnb, setSelectedAirbnb] = useState(null);
   const [selectedHotel, setSelectedHotel] = useState(null);
-  const [userReservation, setUserReservation] = useState(null);
+  const [userReservations, setUserReservations] = useState(null);
   const [profileData, setProfileData] = useState(null);
+  const [reloadReservations, setReloadReservations] = useState(null);
 
   return (
     <SimpleContext.Provider
@@ -33,10 +34,12 @@ export const SimpleProvider = ({ children }) => {
         setSelectedAirbnb,
         selectedHotel,
         setSelectedHotel,
-        userReservation,
-        setUserReservation,
+        userReservations,
+        setUserReservations,
         profileData,
         setProfileData,
+        reloadReservations,
+        setReloadReservations,
       }}
     >
       {children}
