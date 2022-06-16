@@ -5,11 +5,11 @@ import Hero2 from "../Hero2";
 const Confirmation = () => {
   return (
     <Wrapper>
-      <Hero2 />
-      {/* <TextDiv>Your reservation has been placed!</TextDiv>
+      <TextDiv>Your reservation has been placed!</TextDiv>
       <TextDiv>
-        <LinkProfile to="/profile/">See reservation details</LinkProfile>
-      </TextDiv> */}
+        <LinkProfile to="/profile">See reservation details</LinkProfile>
+      </TextDiv>
+      <Hero2 />
     </Wrapper>
   );
 };
@@ -18,6 +18,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   /* padding: 20vh; */
+  z-index: 1;
 `;
 const TextDiv = styled.div`
   color: black;

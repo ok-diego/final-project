@@ -14,13 +14,18 @@ const Reservation = () => {
   const { user } = useAuth0();
   console.log(user);
 
-  const { selectedAirbnb, startDate, endDate, setUserReservations } =
+  const { selectedAirbnb, startDate, endDate, setUserReservation } =
     useContext(SimpleContext);
 
   const navigate = useNavigate();
 
   const handleNavigateConfirmation = () => {
     navigate("/confirmation");
+  };
+
+  // set localStorage to save reservationId
+  const reservationIdLocStorage = (id) => {
+    localStorage.setItem("reservationId", id);
   };
 
   const handleSubmitReservation = (ev) => {
@@ -58,7 +63,8 @@ const Reservation = () => {
         .then((parsedResponse) => {
           console.log("Hi", parsedResponse);
 
-          setUserReservations(parsedResponse.data);
+          setUserReservation(parsedResponse.data);
+          reservationIdLocStorage(parsedResponse.data.reservationId);
 
           if (parsedResponse.status === 201) {
             handleNavigateConfirmation();

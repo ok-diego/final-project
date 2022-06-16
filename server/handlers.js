@@ -11,6 +11,7 @@ const options = {
   useUnifiedTopology: true,
 };
 
+// create new user if it doesnt exist
 // const handleCreateUser = async (req, res) => {
 //   // creates a new mongodb client
 //   const client = new MongoClient(MONGO_URI, options);
@@ -49,44 +50,52 @@ const options = {
 //   console.log("disconnected!");
 // };
 
-// const handleUserVerification = async (req, res, next) => {
-//   // Get auth0 sub from params
-//   const { auth0Sub } = req.params;
-//   const userData = req.body;
+const handleUserVerification = async (req, res, next) => {
+  // Get auth0 sub from url params(endpoit)
+  const { auth0Sub } = req.params;
+  const userData = req.body;
 
-//   // creates a new mongodb client
-//   const client = new MongoClient(MONGO_URI, options);
+  // creates a new mongodb client
+  const client = new MongoClient(MONGO_URI, options);
 
-//   try {
-//     // connect to the client
-//     await client.connect();
+  try {
+    // connect to the client
+    await client.connect();
 
-//     // connect to the database
-//     const db = client.db("simple_stay");
+    // connect to the database
+    const db = client.db("simple_stay");
 
-//     // set a queryObj to pass into findOne
-//     const queryObj = { _id: auth0Sub };
+    // set a queryObj to pass into findOne
+    const queryObj = { _id: auth0Sub };
 
-//     const user = await db.collection("users").findOne(queryObj);
+    const user = await db.collection("users").findOne(queryObj);
 
-//     // if the user exists, respond status 200 and the user's data
-//     if (user) {
-//       res.status(200).json({ status: 200, data: req.body, message: "success" });
-//     } else {
-//       // if the user does not exist then create it
-//       // locals is an obj inside the res obj
-//       // next() calls the next function set in our endpoint
-//       // handleCreateUser in this case
-//       res.locals.userData = userData;
-//       next();
-//     }
-//   } catch (error) {
-//     console.log(error);
-//   }
+    // if the user exists, respond status 200 and the user's data
+    if (user) {
+      res.status(200).json({
+        status: 200,
+        // data: req.body,
+        data: user.sub,
+        message: "user logged in succesfully",
+      });
+    } else {
+      res.status(404).json({ status: 404, message: "user not logged in" });
+    }
+    // else {
+    //   // if the user does not exist then create it
+    //   // locals is an obj inside the res obj
+    //   // next() calls the next function set in our endpoint
+    //   // handleCreateUser in this case
+    //   res.locals.userData = userData;
+    //   next();
+    // }
+  } catch (error) {
+    console.log(error);
+  }
 
-//   client.close();
-//   console.log("disconnected!");
-// };
+  client.close();
+  console.log("disconnected!");
+};
 
 // POST add reservation
 const handleAddReservation = async (req, res) => {
@@ -195,7 +204,7 @@ const handleGetReservations = async (req, res) => {
     // the key email needs to match the key we want in the db
     // req.params.email where email needs to match what we wrote in the endpoint in index
     const query = { email: req.params.email };
-    console.log(query);
+    // console.log(query);
 
     const findAllResults = await db.collection("users").findOne(query);
 
@@ -325,7 +334,7 @@ const handleRemoveReservation = async (req, res) => {
 };
 
 module.exports = {
-  // handleUserVerification,
+  handleUserVerification,
   // handleCreateUser,
   handleAddReservation,
   handleGetReservation,

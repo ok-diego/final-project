@@ -15,18 +15,16 @@ import {
   InfoWindow,
 } from "react-google-maps";
 
-// react icons imports
-import { FaAirbnb } from "react-icons/fa";
 // components imports
 import PlanningBar from "../PlanningBar";
 import mapStyles from "./mapStyles";
 
-const airbnbIcon = {
-  path: "M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8z",
-  fillColor: "#64be67",
-  fillOpacity: 1,
-  scale: 0.05, //to reduce the size of icons
-};
+// const airbnbIcon = {
+//   path: "M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8z",
+//   fillColor: "#64be67",
+//   fillOpacity: 1,
+//   scale: 0.05, //to reduce the size of icons
+// };
 
 // render a google map imported from the react google map library
 const EmptyMap = () => {

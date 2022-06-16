@@ -1,16 +1,16 @@
-import styled from "styled-components";
 import { useAuth0 } from "@auth0/auth0-react";
+import styled from "styled-components";
 import React from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { SimpleContext } from "../SimpleContext";
-import { useState } from "react";
 
 const Profile = () => {
   const { user, isAuthenticated, isLoading } = useAuth0();
+  console.log(user.sub);
 
   const { userReservations, setUserReservations } = useContext(SimpleContext);
-  // const [update, setUpdate] = useState(false);
+  const [updateState, setUpdateState] = useState(false);
 
   const navigate = useNavigate();
 
@@ -19,23 +19,26 @@ const Profile = () => {
   };
 
   useEffect(() => {
-    if (!user) {
+    if (!isAuthenticated) {
+      // set reservations to empty array
       setUserReservations([]);
-      // useNavigate to heme if user not logged in
+      // if user not logged in navigate to home
       handleNavigateHome();
     } else {
       fetch(`/user-reservations/${user.email}`)
         .then((res) => res.json())
         .then((parsedResponse) => {
           console.log(parsedResponse.data);
+
           setUserReservations(parsedResponse.data);
         })
         .catch((error) => {
           console.log(error);
         });
     }
-  }, []);
+  }, [updateState]);
 
+  // DELETE selected reservation
   const handleRemoveReservation = (ev, email, reservationId) => {
     ev.preventDefault();
 
@@ -52,7 +55,7 @@ const Profile = () => {
         .then((parsedResponse) => {
           console.log("Hi", parsedResponse);
 
-          // setUpdate(!update);
+          setUpdateState(!updateState);
         })
         .catch((error) => {
           console.log(error);

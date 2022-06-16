@@ -168,24 +168,6 @@ const Planning = () => {
                     // console.log(userInput);
                   }}
                 />
-                {/* <FormControl fullWidth>
-                  <InputLabel variant="standard" htmlFor="guests">
-                    Guests
-                  </InputLabel>
-                  <NativeSelect
-                    // defaultValue={1}
-                    value={guests}
-                    name="Guests"
-                    id="guests"
-                    onChange={(event) => {
-                      setGuests(event.target.value);
-                    }}
-                  >
-                    <option value={1}>1</option>
-                    <option value={2}>2</option>
-                    <option value={3}>3</option>
-                  </NativeSelect>
-                </FormControl> */}
                 <FormControl
                   sx={{
                     "& > :not(style)": { m: 0, width: "10ch" },

@@ -1,16 +1,15 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import heroImage from "../../assets/nice-fr-2-1600x900.jpg";
-//import Planning from "../Planning";
 
 const Hero = () => {
   return (
     <Wrapper>
       <HeroContent>
-        <TextDiv>Your reservation has been placed!</TextDiv>
+        {/* <TextDiv>Your reservation has been placed!</TextDiv>
         <TextDiv>
-          <LinkProfile to="/profile/">See reservation details</LinkProfile>
-        </TextDiv>
+          <LinkProfile to="/profile">See reservation details</LinkProfile>
+        </TextDiv> */}
       </HeroContent>
     </Wrapper>
   );
@@ -22,6 +21,7 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 0;
 
   &:before {
     content: "";

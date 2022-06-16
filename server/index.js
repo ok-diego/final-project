@@ -39,12 +39,11 @@ express()
   // POST user
   // verify if user exists or create one
   // sub is auth0's id
-  // .post(
-  //   "/user-verification/:auth0Sub",
-  //   handleUserVerification,
-  //   handleCreateUser,
-  //   handleAddReservation
-  // )
+  .post(
+    "/user-verification/:auth0Sub",
+    handleUserVerification
+    // handleCreateUser
+  )
   // POST user
   .post("/user-reservation", handleAddReservation)
 
