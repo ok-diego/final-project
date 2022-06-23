@@ -82,7 +82,7 @@ const Profile = () => {
           User: {user.nickname}
           <Email>Email: {user.email}</Email>
         </User>
-        <TextRes>Manage you reservations</TextRes>
+        <TextRes>Manage your reservations</TextRes>
         {userReservations.map((reservation) => {
           return (
             <React.Fragment key={reservation.reservationId}>
@@ -214,6 +214,7 @@ const Button = styled.button`
   border: none;
   background-color: var(--color-light-green);
   font-size: 0.9rem;
+  cursor: pointer;
 
   &:hover {
     color: rgba(0, 0, 0, 0.8);

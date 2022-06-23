@@ -162,7 +162,7 @@ const Button = styled.button`
   color: white;
   margin-top: 0;
   font-weight: 400;
-  padding: 15px 35px;
+  padding: 12px 32px;
   margin-top: 10px;
   font-size: 0.9rem;
   background-color: var(--color-primary);

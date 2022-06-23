@@ -143,8 +143,8 @@ const PlanningBar = () => {
               // fullWidth
               variant="outlined"
               //   size="small"
-              value={userInput}
-              placeholder={destination}
+              value={destination}
+              placeholder="Choose your destination"
               onChange={(event) => {
                 // setDestination("");
                 setUserInput(event.target.value);

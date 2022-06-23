@@ -14,10 +14,11 @@ const LogoutButton = () => {
 const Button = styled.button`
   text-decoration: none;
   color: white;
-  margin-top: 0;
-  font-weight: 400;
-  padding: 8px 20px;
   font-size: 0.8rem;
+  font-weight: 400;
+  margin-top: 0;
+  margin-right: 10px;
+  padding: 8px 20px;
   background-color: var(--color-primary);
   border: none;
   border-radius: 30px;

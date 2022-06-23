@@ -33,7 +33,7 @@ const Wrapper = styled.div`
   height: 50px;
   border-bottom: 1px solid var(--color-light-blue);
   padding: 20px;
-  /* box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12); */
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
 `;
 const LogoType = styled.div`
   padding: 10px;
@@ -54,7 +54,7 @@ const LinkLogo = styled(Link)`
 const UserDiv = styled.div`
   display: flex;
   align-self: center;
-  margin-left: 75vw;
+  margin-left: 78vw;
   font-weight: 600;
 `;
 const UserProfile = styled(LinkLogo)`

@@ -66,7 +66,7 @@ const LinkProfile = styled(Link)`
   color: white;
   margin-top: 0;
   font-weight: 400;
-  padding: 10px 25px;
+  padding: 12px 32px;
   margin-left: 5px;
   font-size: 0.9rem;
   background-color: var(--color-primary);
