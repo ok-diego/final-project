@@ -24,9 +24,9 @@ const Reservation = () => {
   };
 
   // set localStorage to save reservationId
-  const reservationIdLocStorage = (id) => {
-    localStorage.setItem("reservationId", id);
-  };
+  // const reservationIdLocStorage = (id) => {
+  //   localStorage.setItem("reservationId", id);
+  // };
 
   const handleSubmitReservation = (ev) => {
     ev.preventDefault();
@@ -64,7 +64,7 @@ const Reservation = () => {
           console.log("Hi", parsedResponse);
 
           setUserReservation(parsedResponse.data);
-          reservationIdLocStorage(parsedResponse.data.reservationId);
+          // reservationIdLocStorage(parsedResponse.data.reservationId);
 
           if (parsedResponse.status === 201) {
             handleNavigateConfirmation();

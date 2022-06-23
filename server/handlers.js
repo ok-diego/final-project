@@ -240,56 +240,6 @@ const handleDeleteReservation = async (req, res) => {
     // connect to the database
     const db = client.db("simple_stay");
 
-    // to get id from request body (FE)
-    // set a variable with the body's id key
-    // const id = req.body._id;
-    // console.log(id);
-
-    // other ways to use deleteOne are params and query
-    // to get id from url
-    const id = req.params.reservationId;
-
-    // delete one reservation
-    const deleteReservation = await db
-      .collection("users")
-      .deleteOne({ reservations: id });
-
-    // this check may not work because deleteOne doesn't return anything
-    if (deleteReservation) {
-      res
-        .status(204)
-        .json({ status: "success", message: "reservation deleted" });
-    } else {
-      res
-        .status(404)
-        .json({ status: "error", message: "something went wrong" });
-    }
-  } catch (error) {
-    console.log(error);
-  }
-
-  client.close();
-  console.log("disconnected!");
-};
-
-// REMOVE reservation
-const handleRemoveReservation = async (req, res) => {
-  // creates a new mongodb client
-  const client = new MongoClient(MONGO_URI, options);
-
-  try {
-    // connect to the client
-    await client.connect();
-    console.log("connected!");
-
-    // connect to the database
-    const db = client.db("simple_stay");
-
-    // to get id from request body (FE)
-    // set a variable with the body's id key
-    // const id = req.body._id;
-    // console.log(id);
-
     // search query finds the user id
     // and access the resersvations and reservation Id in the array
     // const query = {
@@ -340,5 +290,4 @@ module.exports = {
   handleGetReservation,
   handleGetReservations,
   handleDeleteReservation,
-  handleRemoveReservation,
 };

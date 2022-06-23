@@ -54,8 +54,6 @@ const Profile = () => {
         .then((res) => res.json())
         .then((parsedResponse) => {
           console.log("Hi", parsedResponse);
-
-          setUpdateState(!updateState);
         })
         .catch((error) => {
           console.log(error);
@@ -107,6 +105,7 @@ const Profile = () => {
                         user.email,
                         reservation.reservationId
                       );
+                      setUpdateState(!updateState);
                     }}
                   >
                     Delete
@@ -126,7 +125,8 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   align-content: center;
-  margin-top: 10vh;
+  margin-top: 5vh;
+  margin-bottom: 5vh;
 `;
 const TextProfile = styled.div`
   align-self: center;

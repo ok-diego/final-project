@@ -12,7 +12,6 @@ const {
   handleGetReservation,
   handleGetReservations,
   handleDeleteReservation,
-  handleRemoveReservation,
 } = require("./handlers");
 
 express()
@@ -35,8 +34,14 @@ express()
 
   // REST endpoints?
   .get("/bacon", (req, res) => res.status(200).json("🥓"))
-  // Users Endpoints
-  // POST user
+  // GET user reservation
+  .get("/user-reservation/:email", handleGetReservation)
+
+  // GET all reservations
+  // email becomes the key in req.params in handler function
+  .get("/user-reservations/:email", handleGetReservations)
+
+  // POST user verification
   // verify if user exists or create one
   // sub is auth0's id
   .post(
@@ -44,19 +49,10 @@ express()
     handleUserVerification
     // handleCreateUser
   )
-  // POST user
+  // POST user new reservation
   .post("/user-reservation", handleAddReservation)
 
-  // GET user reservation
-  .get("/user-reservation/:email", handleGetReservation)
-
-  // email becomes the key in req.params in handler function
-  .get("/user-reservations/:email", handleGetReservations)
-
   // DELETE reservation
-  // .delete("/user-reservation/:reservationId", handleDeleteReservation)
-
-  // REMOVE reservation
-  .delete("/user-reservation/:email/:reservationId", handleRemoveReservation)
+  .delete("/user-reservation/:email/:reservationId", handleDeleteReservation)
 
   .listen(PORT, () => console.info(`Listening on port ${PORT}`));

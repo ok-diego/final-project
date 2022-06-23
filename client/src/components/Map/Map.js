@@ -99,7 +99,13 @@ const EmptyMap = () => {
               setSelectedAirbnb(null);
             }}
           >
-            <InfoName>{selectedAirbnb.name}</InfoName>
+            <>
+              <InfoName>{selectedAirbnb.name} </InfoName>
+              <InfoType>{selectedAirbnb.type}</InfoType>
+              <LiBold>
+                {selectedAirbnb.rating} <InfoGuest>Guest rating</InfoGuest>
+              </LiBold>
+            </>
           </InfoWindow>
         ) : null}
         {/* map over hotels ap(i and create markers for each of them */}
@@ -141,7 +147,13 @@ const EmptyMap = () => {
               setSelectedHotel(null);
             }}
           >
-            <InfoName>{selectedHotel.name}</InfoName>
+            <>
+              <InfoName>{selectedHotel.name}</InfoName>
+              <InfoType>Room: 1 x Standard Double Room</InfoType>
+              <LiBold>
+                4.8 <InfoGuest>Guest rating</InfoGuest>
+              </LiBold>
+            </>
           </InfoWindow>
         ) : null}
         )
@@ -488,19 +500,6 @@ const DetailsDiv = styled.div`
     box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.1), 0 2px 8px 0 rgba(0, 0, 0, 0.12);
   }
 `;
-// const LinkCard = styled(Link)`
-//   color: var(--color-primary);
-//   text-decoration: none;
-//   width: 520px;
-//   height: 140px;
-//   border-radius: 15px;
-
-//   &:hover {
-//     color: rgba(0, 0, 0, 0.8);
-//     box-shadow: 0 2px 3px 0 rgba(160, 174, 217, 0.16),
-//       0 2px 8px 0 rgba(160, 174, 217, 0.12);
-//   }
-// `;
 const Button = styled.button`
   color: var(--color-primary);
   text-decoration: none;
@@ -552,6 +551,14 @@ const LiSpanPrice = styled.span`
 const LiBold = styled.span`
   color: #000;
   font-weight: 600;
+`;
+const InfoType = styled.div`
+  color: gray;
+  padding: 5px 0;
+  font-weight: 300;
+`;
+const InfoGuest = styled.span`
+  font-weight: 300;
 `;
 
 export default NullMap;

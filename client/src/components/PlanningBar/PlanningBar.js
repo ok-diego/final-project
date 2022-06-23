@@ -24,8 +24,10 @@ const PlanningBar = () => {
   const {
     destination,
     setDestination,
-    date,
-    setDate,
+    startDate,
+    setStartDate,
+    endDate,
+    setEndDate,
     airbnbResults,
     setAirbnbResults,
     hotelsResults,
@@ -34,15 +36,13 @@ const PlanningBar = () => {
 
   const [userInput, setUserInput] = useState("");
   // date picker states
-  const [startDate, setStartDate] = useState(null);
-  const [endDate, setEndDate] = useState(null);
+  // const [startDate, setStartDate] = useState(null);
+  // const [endDate, setEndDate] = useState(null);
 
   // modal dialog states
   const [open, setOpen] = useState(false);
   const [close, setClose] = useState(false);
   const [guests, setGuests] = useState(1);
-
-  // setDestination(userInput);
 
   const handleOpenModal = () => {
     setOpen(true);
@@ -52,38 +52,6 @@ const PlanningBar = () => {
     setOpen(false);
     setClose(true);
   };
-
-  // date formatting for airbnb fetch query
-  // const formatStartDate = (date) => {
-  //   if (!date) return "";
-
-  //   // date object index starts at 0 for months - so we add 1 for january
-  //   let month = 1 + date.getMonth();
-
-  //   // months before 10 only display one number - so we add 0 before it
-  //   if (month < 10) {
-  //     month = "0" + month;
-  //   }
-
-  //   if (date) {
-  //     return `${date.getFullYear()}-${month}-${date.getDate()}`;
-  //   }
-  // };
-
-  // const formatEndDate = (date) => {
-  //   if (!date) return "";
-
-  //   // date object index starts at 0 for months - so we add 1 for january
-  //   let month = 1 + date.getMonth();
-
-  //   if (month < 10) {
-  //     month = "0" + month;
-  //   }
-
-  //   if (date) {
-  //     return `${date.getFullYear()}-${month}-${date.getDate()}`;
-  //   }
-  // };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -176,8 +144,9 @@ const PlanningBar = () => {
               variant="outlined"
               //   size="small"
               value={userInput}
-              placeholder="Enter destination"
+              placeholder={destination}
               onChange={(event) => {
+                // setDestination("");
                 setUserInput(event.target.value);
                 // console.log(userInput);
               }}
@@ -208,29 +177,6 @@ const PlanningBar = () => {
                 renderInput={(params) => <TextField {...params} />}
               />
             </LocalizationProvider>
-            {/* <FormControl
-              sx={{
-                "& > :not(style)": { m: 0, width: "10ch" },
-              }}
-            >
-              <InputLabel id="guests">Guests</InputLabel>
-              <Select
-                // defaultValue={1}
-                value={guests}
-                name="Guests"
-                id="guests"
-                label="guests"
-                autoWidth
-                onChange={(event) => {
-                  setGuests(event.target.value);
-                }}
-              >
-                <MenuItem value="1"></MenuItem>
-                <MenuItem value={1}>1</MenuItem>
-                <MenuItem value={2}>2</MenuItem>
-                <MenuItem value={3}>3</MenuItem>
-              </Select>
-            </FormControl> */}
             <FormControl sx={{ m: 1, minWidth: 120 }}>
               <InputLabel htmlFor="grouped-select">Guests</InputLabel>
               <Select

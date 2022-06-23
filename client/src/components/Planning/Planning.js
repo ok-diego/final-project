@@ -1,9 +1,13 @@
-import { useContext, useState } from "react";
+import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import { SimpleContext } from "../SimpleContext";
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+// import {
+//   DateRangePicker,
+//   DateRange,
+// } from "@mui/x-date-pickers-pro/DateRangePicker";
 import { formatStartDate, formatEndDate } from "../common/formatDate";
 import {
   TextField,
@@ -34,17 +38,16 @@ const Planning = () => {
   } = useContext(SimpleContext);
 
   const [userInput, setUserInput] = useState("");
-  // date picker states
-  // const [startDate, setStartDate] = useState(null);
-  // const [endDate, setEndDate] = useState(null);
 
   // modal dialog states
   const [open, setOpen] = useState(false);
   const [close, setClose] = useState(false);
   const [guests, setGuests] = useState(1);
 
-  // setDestination(userInput);
+  // date range picker state
+  // const [dateValues, setDateValues] = useState([null, null]);
 
+  // modal handler function
   const handleOpenModal = () => {
     setOpen(true);
   };
@@ -223,6 +226,25 @@ const Planning = () => {
                     renderInput={(params) => <TextField {...params} />}
                   />
                 </LocalizationProvider>
+                {/* date range picker - only with license suubscription */}
+                {/* <LocalizationProvider
+                  dateAdapter={AdapterDateFns}
+                  localeText={{ start: "Check-in", end: "Check-out" }}
+                >
+                  <DateRangePicker
+                    value={dateValues}
+                    onChange={(newValue) => {
+                      setDateValues(newValue);
+                    }}
+                    renderInput={(startProps, endProps) => (
+                      <React.Fragment>
+                        <TextField {...startProps} />
+                        <Box sx={{ mx: 2 }}> to </Box>
+                        <TextField {...endProps} />
+                      </React.Fragment>
+                    )}
+                  />
+                </LocalizationProvider> */}
               </Box>
               <DialogActions>
                 <InputSubmit
