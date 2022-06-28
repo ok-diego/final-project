@@ -6,11 +6,11 @@ A simple travel application to help users plan for a vacation by providing aggre
 
 ![Simple_Stay](client/src/assets/simple-stay.jpg)
 
-[Youtube demo](https://youtu.be/z03-h7guej0){:target="\_blank"}
+<a href="https://youtu.be/Z03-h7GUej0" target="_blank">Youtube demo</a>
 
-## Project setup
+### Project setup
 
-This project was created with React app
+This project was created with the MERN stack development workflow, with React as the front-end framework, and MongoDB, Express, and Node for the server, backend and database frameworks.
 
 ### Available scripts
 
